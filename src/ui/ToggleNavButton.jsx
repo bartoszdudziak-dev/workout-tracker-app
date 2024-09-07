@@ -1,5 +1,9 @@
-import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai';
-import { TfiLayoutSidebarLeft, TfiLayoutSidebarNone } from 'react-icons/tfi';
+import {
+  TbArrowBarToLeft,
+  TbArrowBarToRight,
+  TbMenu2,
+  TbX,
+} from 'react-icons/tb';
 
 import ButtonIcon from './ButtonIcon';
 
@@ -15,14 +19,14 @@ function ToggleNavButton() {
       icon={
         isMobile ? (
           isNavOpen ? (
-            <AiOutlineClose />
+            <TbX />
           ) : (
-            <AiOutlineMenu />
+            <TbMenu2 />
           )
         ) : isNavOpen ? (
-          <TfiLayoutSidebarLeft />
+          <TbArrowBarToLeft />
         ) : (
-          <TfiLayoutSidebarNone />
+          <TbArrowBarToRight />
         )
       }
     />

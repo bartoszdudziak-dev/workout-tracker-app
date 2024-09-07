@@ -1,9 +1,9 @@
-import HeaderNav from './SecondaryNav';
+import SecondayNav from './SecondaryNav';
 
 function Header() {
   return (
     <header className='flex items-center justify-between'>
-      <HeaderNav />
+      <SecondayNav />
     </header>
   );
 }

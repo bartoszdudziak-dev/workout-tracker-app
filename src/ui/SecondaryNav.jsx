@@ -5,6 +5,7 @@ import ToggleNavigationButton from './ToggleNavButton';
 import ButtonIcon from './ButtonIcon';
 
 import { useNavigate } from 'react-router-dom';
+import { TbLogout, TbUserSquare } from 'react-icons/tb';
 
 function SecondaryNav() {
   const navigate = useNavigate();
@@ -17,13 +18,13 @@ function SecondaryNav() {
         </li>
         <li>
           <ButtonIcon
-            icon={<VscAccount />}
+            icon={<TbUserSquare />}
             onClick={() => navigate('/settings')}
             size='medium'
           />
         </li>
         <li>
-          <ButtonIcon icon={<GrLogout />} size='medium' />
+          <ButtonIcon icon={<TbLogout />} size='medium' />
         </li>
       </ul>
     </nav>

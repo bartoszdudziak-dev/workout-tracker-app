@@ -6,7 +6,7 @@ function NavItem({ icon, to, text }) {
 
   return (
     <li
-      className='rounded-md p-2 transition-all duration-200 hover:bg-light-secondary'
+      className='rounded-md p-2 transition-all duration-200 hover:bg-light-secondary sm:p-3 md:p-2'
       onClick={isMobile ? toggleNav : null}
     >
       <NavLink to={to} className='flex items-center gap-4'>

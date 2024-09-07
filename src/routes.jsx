@@ -5,6 +5,8 @@ import Home from './pages/Home';
 import Workouts from './pages/Workouts';
 import Plans from './pages/Plans';
 import Settings from './pages/Settings';
+import Account from './pages/Account';
+
 import TestComponent from './features/workouts/TestComponent';
 
 const router = createBrowserRouter([
@@ -15,6 +17,7 @@ const router = createBrowserRouter([
       { path: '/workouts', element: <Workouts /> },
       { path: '/workouts/new', element: <TestComponent /> },
       { path: '/plans', element: <Plans /> },
+      { path: '/account', element: <Account /> },
       { path: '/settings', element: <Settings /> },
     ],
   },
