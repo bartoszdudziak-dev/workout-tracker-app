@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --text-color-primary-light: rgb(0, 0, 0);
+  --text-color-secondary-light: rgb(82, 82, 82);
+
+  --bg-color-primary-light: rgb(248 250 252);
+  --bg-color-secondary-light: rgb(241 245 249);
+  --bg-color-tetiary-light: rgb(204, 204, 204);
+
+  --accent-color-primary: rgb(188, 50, 239);
+  --accent-color-secondary: rgb(69, 16, 105);
+}
+
+nav li:has(a.active) {
+  color: var(--accent-color-secondary);
+  background-color: var(--bg-color-secondary-light);
+  font-weight: bold;
+  transition: all 200ms ease-out;
+}
