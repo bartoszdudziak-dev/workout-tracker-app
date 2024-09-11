@@ -4,11 +4,14 @@ export default {
   theme: {
     extend: {
       backgroundColor: {
-        light: {
-          primary: 'var(--bg-color-primary-light)',
-          secondary: 'var(--bg-color-secondary-light)',
-          tetiary: 'var(--bg-color-tetiary-light)',
+        primary: 'var(--bg-color-primary)',
+        secondary: 'var(--bg-color-secondary)',
+
+        backdrop: {
+          primary: 'var(--bg-backdrop-primary)',
+          secondary: 'var(--bg-backdrop-secondary)',
         },
+
         accent: {
           primary: 'var(--accent-color-primary)',
           secondary: 'var(--accent-color-secondary)',
@@ -16,16 +19,19 @@ export default {
       },
 
       colors: {
-        light: {
-          primary: 'var(--text-color-primary-light)',
-          secondary: 'var(--text-color-secondary-light)',
-        },
+        primary: 'var(--text-color-primary)',
+        secondary: 'var(--text-color-secondary)',
+        tetiary: 'var(--text-color-tetiary)',
+
         accent: {
           primary: 'var(--accent-color-primary)',
           secondary: 'var(--accent-color-secondary)',
         },
       },
 
+      maxWidth: {
+        xs: '480px',
+      },
       screens: {
         xs: '480px',
       },

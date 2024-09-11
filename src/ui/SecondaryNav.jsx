@@ -1,11 +1,9 @@
-import { GrLogout } from 'react-icons/gr';
-import { VscAccount } from 'react-icons/vsc';
+import { TbLogout, TbUserSquare } from 'react-icons/tb';
 
 import ToggleNavigationButton from './ToggleNavButton';
 import ButtonIcon from './ButtonIcon';
 
 import { useNavigate } from 'react-router-dom';
-import { TbLogout, TbUserSquare } from 'react-icons/tb';
 
 function SecondaryNav() {
   const navigate = useNavigate();
@@ -20,11 +18,12 @@ function SecondaryNav() {
           <ButtonIcon
             icon={<TbUserSquare />}
             onClick={() => navigate('/settings')}
-            size='medium'
+            type='secondary'
+            size='large'
           />
         </li>
         <li>
-          <ButtonIcon icon={<TbLogout />} size='medium' />
+          <ButtonIcon icon={<TbLogout />} type='secondary' size='large' />
         </li>
       </ul>
     </nav>

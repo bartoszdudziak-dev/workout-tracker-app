@@ -1,23 +1,14 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { MAX_MOBILE_WIDTH } from '../consts';
+
+import { useMobile } from '../hooks/useMobile';
 
 const LayoutContext = createContext();
 
 function LayoutProvider({ children }) {
-  const [isNavOpen, setIsNavOpen] = useState(true);
-  const [isMobile, setIsMobile] = useState(
-    () => !window.matchMedia(`(min-width: ${MAX_MOBILE_WIDTH})`).matches,
-  );
+  const { isMobile } = useMobile();
 
+  const [isNavOpen, setIsNavOpen] = useState(isMobile ? false : true);
   const toggleNav = () => setIsNavOpen((open) => !open);
-
-  useEffect(() => {
-    const mediaQuery = window.matchMedia(`(min-width: ${MAX_MOBILE_WIDTH})`);
-    const updateMedia = () => setIsMobile(!mediaQuery.matches);
-
-    mediaQuery.addEventListener('change', updateMedia);
-    return () => mediaQuery.removeEventListener('change', updateMedia);
-  }, []);
 
   return (
     <LayoutContext.Provider value={{ isMobile, isNavOpen, toggleNav }}>

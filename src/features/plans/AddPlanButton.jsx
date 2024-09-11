@@ -4,7 +4,7 @@ function AddPlanButton({ onClick }) {
   return (
     <button
       onClick={onClick}
-      className='flex aspect-square items-center justify-center overflow-clip rounded-md bg-light-tetiary p-3 leading-3 text-accent-secondary shadow-lg transition-all duration-300 hover:scale-105 xs:p-5 md:rounded-lg'
+      className='bg-backdrop-secondary text-secondary flex aspect-square items-center justify-center overflow-clip rounded-md p-3 leading-3 shadow-lg transition-all duration-200 hover:scale-105 hover:text-accent-primary focus:outline-4 focus:outline-offset-4 focus:outline-accent-primary xs:p-5 md:rounded-lg'
     >
       <TbPlus className='size-20 xs:size-24 md:size-28' />
     </button>

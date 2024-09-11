@@ -15,7 +15,8 @@ function ToggleNavButton() {
   return (
     <ButtonIcon
       onClick={toggleNav}
-      size='medium'
+      type='secondary'
+      size='large'
       icon={
         isMobile ? (
           isNavOpen ? (

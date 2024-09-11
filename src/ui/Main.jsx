@@ -1,6 +1,6 @@
 function Main({ children }) {
   return (
-    <main className='overflow-y-auto bg-light-secondary p-5 shadow-inner sm:p-8 md:p-10'>
+    <main className='scroll-gutter-stable bg-secondary overflow-y-auto p-4 shadow-inner md:p-6'>
       {children}
     </main>
   );

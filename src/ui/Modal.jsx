@@ -1,42 +1,53 @@
-import { createPortal } from 'react-dom';
-import { cloneElement, createContext, useContext, useState } from 'react';
-
 import { TbX } from 'react-icons/tb';
 
 import ButtonIcon from './ButtonIcon';
 
+import { createPortal } from 'react-dom';
+import { cloneElement, createContext, useContext, useState } from 'react';
+
 const ModalContext = createContext();
 
 function Modal({ children }) {
-  const [isOpen, setIsOpen] = useState(false);
+  const [openName, setOpenName] = useState('');
 
-  const open = () => setIsOpen(true);
-  const close = () => setIsOpen(false);
+  const open = setOpenName;
+  const close = () => setOpenName('');
 
   return (
-    <ModalContext.Provider value={{ isOpen, open, close }}>
+    <ModalContext.Provider value={{ openName, open, close }}>
       {children}
     </ModalContext.Provider>
   );
 }
 
-function Open({ children }) {
+function Open({ children, opens: opensWindowName }) {
   const { open } = useContext(ModalContext);
-  return cloneElement(children, { onClick: () => open() });
+  return cloneElement(children, { onClick: () => open(opensWindowName) });
 }
 
-function Window({ children }) {
-  const { isOpen, close } = useContext(ModalContext);
+function Window({ size = 'medium', name, children }) {
+  const windowSize = {
+    medium: 'max-w-screen-xs ',
+    large: 'max-w-screen-xs sm:max-w-screen-sm md:max-w-screen-md',
+  };
 
-  if (!isOpen) return null;
+  const { openName, close } = useContext(ModalContext);
+  if (name !== openName) return null;
 
   return createPortal(
-    <div className='fixed inset-0 z-50 bg-white/10 bg-blend-overlay backdrop-blur-md'>
-      <div className='fixed left-1/2 top-1/2 w-full max-w-screen-md -translate-x-1/2 -translate-y-1/2 border bg-light-primary p-10 shadow-2xl md:rounded-lg'>
+    <div className='bg-backdrop-primary fixed inset-0 z-50 backdrop-blur-md'>
+      <div
+        className={`bg-primary fixed left-1/2 top-1/2 h-max w-full -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded border-2 shadow-2xl sm:rounded-md md:rounded-lg ${windowSize[size]}`}
+      >
         <span className='absolute right-5 top-5'>
-          <ButtonIcon icon={<TbX />} size='medium' onClick={close} />
+          <ButtonIcon
+            type='secondary'
+            size='large'
+            icon={<TbX />}
+            onClick={close}
+          />
         </span>
-        <div className='w-full break-words'>{children}</div>
+        {cloneElement(children, { onClose: close })}
       </div>
     </div>,
     document.body,

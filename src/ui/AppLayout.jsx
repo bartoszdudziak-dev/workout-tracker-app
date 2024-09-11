@@ -13,7 +13,7 @@ function AppLayout() {
 
   return (
     <div
-      className={`grid h-dvh bg-light-primary ${
+      className={`bg-primary text-primary grid h-dvh ${
         isMobile
           ? `grid-rows-[auto_1fr] ${isNavOpen && 'grid-rows-[auto_auto_1fr]'}`
           : `grid-rows-[auto_1fr] ${isNavOpen ? 'grid-cols-[15rem_1fr]' : 'grid-cols-[1fr]'}`
@@ -21,9 +21,7 @@ function AppLayout() {
     >
       <Header />
 
-      {isMobile
-        ? isNavOpen && <PrimaryNavigation />
-        : isNavOpen && <Sidebar />}
+      {isMobile ? isNavOpen && <PrimaryNavigation /> : isNavOpen && <Sidebar />}
 
       <Main>
         <Container>
