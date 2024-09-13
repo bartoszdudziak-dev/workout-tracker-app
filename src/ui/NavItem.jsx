@@ -6,12 +6,12 @@ function NavItem({ icon = '', to = '', text = '' }) {
 
   return (
     <li
-      className='hover:bg-secondary rounded-md transition-colors duration-200'
+      className='rounded-md transition-colors duration-200 hover:bg-secondary'
       onClick={isMobile ? toggleNav : null}
     >
       <NavLink
         to={to}
-        className='flex items-center gap-4 p-2 transition-all duration-200 focus:outline-2 focus:outline-offset-4 focus:outline-accent-primary sm:p-3 md:p-2'
+        className='flex items-center gap-4 rounded-md p-2 outline-none focus-visible:ring-2 focus-visible:ring-accent-primary md:p-2'
       >
         {icon} <span className='text-sm md:text-base'>{text}</span>
       </NavLink>

@@ -23,6 +23,8 @@ export default {
         secondary: 'var(--text-color-secondary)',
         tetiary: 'var(--text-color-tetiary)',
 
+        offsetColor: 'var(--ring-offset-color)',
+
         accent: {
           primary: 'var(--accent-color-primary)',
           secondary: 'var(--accent-color-secondary)',

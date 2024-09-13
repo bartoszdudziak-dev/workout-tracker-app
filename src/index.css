@@ -4,7 +4,7 @@
 
 :root {
   &,
-  &.light-mode {
+  &.light {
     --text-color-primary: rgb(0, 0, 0);
     --text-color-secondary: rgb(82, 82, 82);
     --text-color-tetiary: rgb(204, 204, 204);
@@ -17,32 +17,34 @@
     --bg-backdrop-secondary: rgba(204, 204, 204, 0.3);
 
     --accent-color-primary: rgb(69, 16, 105);
-    --accent-color-secondary: rgb(188, 50, 239);
+    --ring-offset-color: white;
   }
 
-  &.dark-mode {
-    --text-color-primary: rgb(255, 255, 255);
-    --text-color-secondary: rgb(173, 173, 173);
-    --text-color-tetiary: rgb(51, 51, 51);
+  &.dark {
+    --text-color-primary: rgb(200, 198, 198);
+    --text-color-secondary: rgb(170, 170, 170);
+    --text-color-tetiary: rgb(100, 100, 100);
 
-    --bg-color-primary: rgb(0, 5, 5);
-    --bg-color-secondary: rgb(7, 10, 14);
-    --bg-color-tetiary: rgb(51, 51, 51);
+    --bg-color-primary: #212121;
+    --bg-color-secondary: #303030;
+    --bg-color-tetiary: #424242;
 
-    --bg-backdrop-primary: rgb(0 0 0 / 0.1);
-    --bg-backdrop-secondary: rgba(51, 51, 51, 0.3);
+    --bg-backdrop-primary: rgb(255 255 255 / 0.1);
+    --bg-backdrop-secondary: rgba(100, 100, 100, 0.3);
 
     --accent-color-primary: rgb(202, 153, 234);
+    --ring-offset-color: black;
   }
+}
+
+* {
+  transition: background-color 500ms;
 }
 
 nav li:has(a.active) {
   color: var(--accent-color-primary);
   background-color: var(--bg-color-secondary);
   font-weight: bold;
-  transition:
-    color 300ms ease-out,
-    background-color 300ms ease-out;
 }
 
 .scroll-gutter-stable {

@@ -106,7 +106,7 @@ function PlanForm({ session, plan }) {
             </Label>
           </div>
 
-          <div className='scroll-gutter-stable max-h-[50dvh] divide-y overflow-y-auto overflow-x-clip rounded border px-2 py-1 shadow-inner sm:max-h-[45dvh] sm:px-4 sm:py-1.5 md:max-h-[35vh]'>
+          <div className='scroll-gutter-stable max-h-[50dvh] divide-y divide-tetiary overflow-y-auto overflow-x-clip rounded border border-tetiary px-2 py-1 shadow-inner sm:max-h-[45dvh] sm:px-4 sm:py-1.5 md:max-h-[35vh]'>
             {fields.map((field, index) => {
               return (
                 <div

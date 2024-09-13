@@ -23,8 +23,12 @@ function WorkoutRow({ workout, onOpen, curOpen }) {
             onClick={handleToggle}
           />
         </div>
-        <div className='line-clamp-3 break-all font-semibold'>{name}</div>
-        <div className='text-secondary font-semibold'>{date}</div>
+        <div
+          className={`line-clamp-3 break-all ${isOpen ? 'font-bold text-accent-primary' : 'font-semibold'}`}
+        >
+          {name}
+        </div>
+        <div className='font-semibold text-secondary'>{date}</div>
         <div className='text-base sm:text-xl md:text-2xl'>😁</div>
         <WorkoutOperations />
       </Table.Row>

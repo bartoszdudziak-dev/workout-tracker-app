@@ -35,9 +35,9 @@ function Window({ size = 'medium', name, children }) {
   if (name !== openName) return null;
 
   return createPortal(
-    <div className='bg-backdrop-primary fixed inset-0 z-50 backdrop-blur-md'>
+    <div className='fixed inset-0 z-50 bg-backdrop-primary backdrop-blur-md'>
       <div
-        className={`bg-primary fixed left-1/2 top-1/2 h-max w-full -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded border-2 shadow-2xl sm:rounded-md md:rounded-lg ${windowSize[size]}`}
+        className={`fixed left-1/2 top-1/2 h-max w-full -translate-x-1/2 -translate-y-1/2 overflow-hidden rounded border border-tetiary bg-primary shadow-2xl sm:rounded-md md:rounded-lg ${windowSize[size]}`}
       >
         <span className='absolute right-5 top-5'>
           <ButtonIcon

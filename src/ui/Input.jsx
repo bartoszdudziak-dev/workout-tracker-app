@@ -14,7 +14,7 @@ function Input({
 
   return (
     <input
-      className={`w-full rounded border font-semibold tracking-wider shadow-inner transition-all duration-200 focus:outline-4 focus:outline-offset-2 focus:outline-accent-primary disabled:cursor-not-allowed disabled:opacity-50 md:border-2 ${inputSize[size]}`}
+      className={`w-full rounded border border-tetiary bg-secondary font-semibold tracking-wider text-primary shadow-inner outline-none transition-all duration-200 focus-visible:border-transparent focus-visible:ring-2 focus-visible:ring-accent-primary disabled:cursor-not-allowed disabled:opacity-50 md:border-2 ${inputSize[size]}`}
       id={id}
       autoComplete='off'
       disabled={disabled}

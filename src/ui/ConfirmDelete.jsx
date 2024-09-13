@@ -13,9 +13,11 @@ function ConfirmDelete({
         Delete {resource}
       </h3>
 
-      <p>
+      <p className='tracking-wider text-primary'>
         Are you sure you want to permanently delete{' '}
-        <span className='font-semibold text-accent-primary'>{details}</span>{' '}
+        <span className='inline-block font-semibold text-accent-primary'>
+          {details}
+        </span>{' '}
         {resource}?
       </p>
 

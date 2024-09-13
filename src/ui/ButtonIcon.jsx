@@ -13,9 +13,9 @@ function ButtonIcon({
 
   const buttonType = {
     primary:
-      'focus:outline-primary bg-accent-primary p-1 text-tetiary hover:opacity-85 focus:outline-4 focus:outline-offset-4 disabled:opacity-50 hover:disabled:opacity-50',
+      'bg-accent-primary p-1 text-tetiary hover:opacity-85 disabled:opacity-50 hover:disabled:opacity-50 focus-visible:ring-offset-offsetColor focus-visible:ring-offset-4',
     secondary:
-      'text-secondary disabled:text-tetiary disabled:hover:text-tetiary p-0.5 hover:text-accent-primary focus:outline-4 focus:outline-offset-2 focus:outline-accent-primary',
+      'text-secondary disabled:text-tetiary disabled:hover:text-tetiary p-0.5 hover:text-accent-primary ',
   };
 
   return (
@@ -23,7 +23,7 @@ function ButtonIcon({
       onClick={onClick}
       disabled={disabled}
       type={htmlType}
-      className={`flex items-center justify-center rounded transition-all duration-200 hover:scale-105 disabled:cursor-not-allowed disabled:transition-none hover:disabled:scale-100 ${buttonSize[size]} ${buttonType[type]}`}
+      className={`flex items-center justify-center rounded outline-none transition-all duration-200 hover:scale-105 focus-visible:ring-2 focus-visible:ring-accent-primary active:scale-90 disabled:cursor-not-allowed disabled:transition-none hover:disabled:scale-100 ${buttonSize[size]} ${buttonType[type]}`}
     >
       {icon}
     </button>

@@ -1,8 +1,12 @@
+import { useDarkMode } from '../context/DarkModeContext';
+
 function Logo() {
+  const { isDarkMode } = useDarkMode();
+
   return (
     <div className='space-y-3 text-wrap'>
       <img
-        className='mx-auto w-40'
+        className={`mx-auto w-40 ${isDarkMode && 'brightness-75'} transition-all duration-500`}
         src='/logo.webp'
         alt='The logo of the app, characterized by a bold well-build man in purple T-shirt'
       />

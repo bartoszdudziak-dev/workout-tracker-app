@@ -5,7 +5,9 @@ const TableContext = createContext();
 function Table({ columns, children }) {
   return (
     <TableContext.Provider value={{ columns }}>
-      <div className='overflow-hidden rounded border shadow-md'>{children}</div>
+      <div className='overflow-hidden rounded border border-tetiary shadow-md'>
+        {children}
+      </div>
     </TableContext.Provider>
   );
 }
@@ -15,7 +17,7 @@ function Header({ children }) {
 
   return (
     <div
-      className={`grid shadow-sm ${columns} bg-tetiary place-items-center gap-0.5 px-1 py-2 text-xs font-bold uppercase tracking-widest text-accent-primary sm:text-sm md:text-lg`}
+      className={`grid shadow-sm ${columns} place-items-center gap-0.5 bg-tetiary px-1 py-2 text-xs font-bold uppercase tracking-widest text-accent-primary sm:text-sm md:text-lg`}
     >
       {children}
     </div>
@@ -35,7 +37,9 @@ function Row({ children }) {
 }
 
 function Body({ data, render }) {
-  return <div className='bg-primary divide-y'>{data.map(render)}</div>;
+  return (
+    <div className='divide-y divide-tetiary bg-primary'>{data.map(render)}</div>
+  );
 }
 
 function Footer() {}

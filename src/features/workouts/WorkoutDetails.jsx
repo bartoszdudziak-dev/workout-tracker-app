@@ -5,7 +5,7 @@ function WorkoutDetails({ isOpen, exercises }) {
     <div
       className={`grid ${isOpen ? 'grid-rows-[1fr]' : 'grid-rows-[0fr]'} bg-backdrop-secondary shadow-inner transition-all duration-300`}
     >
-      <ul className='divide-tetiary mx-auto w-full max-w-screen-md divide-y overflow-hidden'>
+      <ul className='mx-auto w-full max-w-screen-md divide-y divide-primary overflow-hidden'>
         {exercises.map((exercise, index) => (
           <Exercise exercise={exercise} key={index} />
         ))}
