@@ -22,7 +22,6 @@ export default [
       react,
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
-      'react/prop-types': 0, // project without TS
     },
     rules: {
       ...js.configs.recommended.rules,
@@ -34,6 +33,7 @@ export default [
         'warn',
         { allowConstantExport: true },
       ],
+      'react/prop-types': 'off', // project without TS
     },
   },
 ];

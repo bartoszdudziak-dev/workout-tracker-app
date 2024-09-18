@@ -5,10 +5,12 @@ function ButtonIcon({
   disabled = false,
   onClick = null,
   icon = '',
+  ...props
 }) {
   const buttonSize = {
     medium: 'text-xl sm:text-2xl lg:text-3xl',
     large: 'text-2xl xs:text-3xl sm:text-3xl lg:text-4xl',
+    xl: 'text-5xl',
   };
 
   const buttonType = {
@@ -20,6 +22,7 @@ function ButtonIcon({
 
   return (
     <button
+      {...props}
       onClick={onClick}
       disabled={disabled}
       type={htmlType}

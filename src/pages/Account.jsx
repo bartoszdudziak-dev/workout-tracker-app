@@ -1,7 +1,13 @@
+import ButtonBack from '../ui/ButtonBack';
 import PageTitle from '../ui/PageTitle';
 
 function Account() {
-  return <PageTitle title='Account' />;
+  return (
+    <>
+      <ButtonBack />
+      <PageTitle title='Account' />
+    </>
+  );
 }
 
 export default Account;

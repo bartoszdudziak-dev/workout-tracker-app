@@ -1,10 +1,12 @@
-import { TbLogout, TbUserSquare } from 'react-icons/tb';
+import { TbUserSquare } from 'react-icons/tb';
 
 import ToggleNavigationButton from './ToggleNavButton';
 import ButtonIcon from './ButtonIcon';
 
-import { useNavigate } from 'react-router-dom';
+import Logout from '../features/authentication/Logout';
 import DarkModeToggle from './DarkModeToggle';
+
+import { useNavigate } from 'react-router-dom';
 
 function SecondaryNav() {
   const navigate = useNavigate();
@@ -27,7 +29,7 @@ function SecondaryNav() {
           />
         </li>
         <li>
-          <ButtonIcon icon={<TbLogout />} type='secondary' size='large' />
+          <Logout />
         </li>
       </ul>
     </nav>

@@ -9,7 +9,7 @@ function Exercise({ exercise }) {
           <div key={index} className='space-x-0.5'>
             <span>{set.reps}</span>
             <span>x</span>
-            <span>{set.weight}</span>
+            <span>{`${set.weight}kg`}</span>
           </div>
         ))}
       </div>

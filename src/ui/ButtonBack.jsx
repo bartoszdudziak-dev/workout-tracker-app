@@ -12,7 +12,7 @@ function ButtonBack() {
 
   return (
     <ButtonIcon
-      onClick={() => navigate(-1)}
+      onClick={() => navigate(-1, { fallback: '/dahsboard' })}
       icon={<TbArrowNarrowLeft />}
       type='secondary'
       size='large'

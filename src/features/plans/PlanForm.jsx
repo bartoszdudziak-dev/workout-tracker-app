@@ -1,7 +1,6 @@
-import { DEFAULT_PLAN_INPUTS_NUM } from '../../consts';
+import { DEFAULT_PLAN_EXERCISES, MIN_INPUT_LENGTH } from '../../consts';
 
-import { TbArrowDown, TbArrowUp, TbPlus } from 'react-icons/tb';
-import { RiDeleteBinLine } from 'react-icons/ri';
+import { TbPlus } from 'react-icons/tb';
 
 import FormTitle from '../../ui/FormTitle';
 import Label from '../../ui/Label';
@@ -9,47 +8,64 @@ import Button from '../../ui/Button';
 import ButtonIcon from '../../ui/ButtonIcon';
 import FormRow from '../../ui/FormRow';
 import Input from '../../ui/Input';
+import PlanExerciseField from './PlanExerciseField';
 
 import { useFieldArray, useForm } from 'react-hook-form';
 import { useEffect } from 'react';
+import { useCreatePlan } from './useCreatePlan';
 
-function PlanForm({ session, plan }) {
+function PlanForm({ session, plan, closeModalWindow }) {
   const isCreateSession = session === 'create';
-
   const values = isCreateSession
     ? {
-        planName: '',
-        exercises: new Array(DEFAULT_PLAN_INPUTS_NUM).fill({ name: '' }),
+        planName: 'New Plan',
+        exercises: new Array(DEFAULT_PLAN_EXERCISES).fill({ name: '' }),
       }
     : {
-        planName: plan.planName,
+        planName: plan.name,
         exercises: plan.exercises.map((exercise) => {
           return { name: exercise };
         }),
       };
 
-  const { control, register, handleSubmit, setValue, setFocus } = useForm({
+  const {
+    control,
+    register,
+    handleSubmit,
+    setValue,
+    setFocus,
+    formState: { errors },
+  } = useForm({
     defaultValues: values,
   });
 
-  const { fields, append, remove, swap, move } = useFieldArray({
+  const {
+    fields: exercises,
+    append,
+    remove,
+    swap,
+    move,
+  } = useFieldArray({
     control,
     name: 'exercises',
   });
 
-  const exercisesNum = fields.length;
+  const exercisesNum = exercises.length;
 
-  function handleClear() {
-    fields.forEach((_, index) => setValue(`exercises.${index}.name`, ''));
+  const { createPlan, isCreating } = useCreatePlan();
+  const isEditing = false;
+
+  function handleClearForm() {
+    exercises.forEach((_, index) => setValue(`exercises.${index}.name`, ''));
     setFocus(`exercises.${0}.name`);
   }
 
-  function handleRemove(index) {
+  function handleDeleteExercise(index) {
     if (exercisesNum === 1) return;
     remove(index);
   }
 
-  function handleAdd() {
+  function handleAddExercise() {
     append({ name: '' });
   }
 
@@ -73,13 +89,15 @@ function PlanForm({ session, plan }) {
     }
   }
 
-  function onSubmit(data) {
-    isCreateSession
-      ? console.log('create: ', data)
-      : console.log('edit: ', data);
+  function onSubmit({ planName, exercises }) {
+    if (isCreateSession)
+      createPlan(
+        { planName, exercises },
+        { onSuccess: () => closeModalWindow() },
+      );
   }
 
-  useEffect(() => setFocus('planName'), []);
+  useEffect(() => setFocus('planName'), [setFocus]);
 
   return (
     <form
@@ -92,13 +110,26 @@ function PlanForm({ session, plan }) {
         <div className='sm:w-3/5'>
           <FormRow>
             <Label htmlFor='planName'>Plan Name</Label>
-            <Input id='planName' name='planName' register={register} />
+            <Input
+              disabled={isCreating || isEditing}
+              id='planName'
+              name='planName'
+              size='large'
+              register={register}
+              validation={{
+                required: 'This field is required',
+                validate: (value) =>
+                  value.trim().length >= MIN_INPUT_LENGTH ||
+                  'At least 3 characters required',
+              }}
+              error={errors?.planName}
+            />
           </FormRow>
         </div>
 
         <FormRow>
           <div>
-            <Label htmlFor={fields.at(0).id}>
+            <Label htmlFor={exercises.at(0).id}>
               Exercises{' '}
               <span className='font-bold text-accent-primary md:text-base'>
                 ({exercisesNum})
@@ -107,68 +138,46 @@ function PlanForm({ session, plan }) {
           </div>
 
           <div className='scroll-gutter-stable max-h-[50dvh] divide-y divide-tetiary overflow-y-auto overflow-x-clip rounded border border-tetiary px-2 py-1 shadow-inner sm:max-h-[45dvh] sm:px-4 sm:py-1.5 md:max-h-[35vh]'>
-            {fields.map((field, index) => {
-              return (
-                <div
-                  className='flex items-center justify-between gap-2'
-                  key={field.id}
-                >
-                  <Label
-                    htmlFor={field.id}
-                    srOnly={true}
-                  >{`Exercise ${index + 1}`}</Label>
-
-                  <span className='basis-[2rem] text-right text-xs font-bold text-accent-primary sm:text-sm md:text-base'>
-                    #{index + 1}
-                  </span>
-
-                  <div className='py-2 sm:w-1/2 sm:py-3'>
-                    <Input
-                      size='large'
-                      id={field.id}
-                      defaultValue={field.name}
-                      register={register}
-                      name={`exercises.${index}.name`}
-                      autoComplete='off'
-                    />
-                  </div>
-
-                  <div className='flex gap-0.5 sm:gap-1.5'>
-                    <ButtonIcon
-                      disabled={exercisesNum === 1}
-                      type='secondary'
-                      icon={<TbArrowUp />}
-                      onClick={() => handleSwapUp(index)}
-                    />
-                    <ButtonIcon
-                      disabled={exercisesNum === 1}
-                      type='secondary'
-                      icon={<TbArrowDown />}
-                      onClick={() => handleSwapDown(index)}
-                    />
-                    <ButtonIcon
-                      disabled={exercisesNum === 1}
-                      type='secondary'
-                      icon={<RiDeleteBinLine />}
-                      onClick={() => handleRemove(index)}
-                    />
-                  </div>
-                </div>
-              );
-            })}
+            {exercises.map((exercise, index) => (
+              <PlanExerciseField
+                disabled={isCreating || isEditing}
+                key={exercise.id}
+                exercise={exercise}
+                index={index}
+                register={register}
+                onDelete={handleDeleteExercise}
+                onSwapUp={handleSwapUp}
+                onSwapDown={handleSwapDown}
+                exercisesNum={exercisesNum}
+                errors={errors}
+              />
+            ))}
           </div>
         </FormRow>
       </div>
 
       <div className='mt-6 flex items-center justify-between sm:mt-8 md:mt-10'>
-        <ButtonIcon icon={<TbPlus />} onClick={handleAdd} />
+        <ButtonIcon
+          disabled={isCreating || isEditing}
+          icon={<TbPlus />}
+          onClick={handleAddExercise}
+        />
 
         <div className='space-x-4 sm:space-x-6 md:space-x-8'>
-          <Button type='secondary' size='large' onClick={handleClear}>
+          <Button
+            disabled={isCreating || isEditing}
+            type='secondary'
+            size='large'
+            onClick={handleClearForm}
+          >
             Clear
           </Button>
 
-          <Button htmlType='submit' size='large'>
+          <Button
+            disabled={isCreating || isEditing || Object.keys(errors).length}
+            htmlType='submit'
+            size='large'
+          >
             {isCreateSession ? 'Create' : 'Edit'}
           </Button>
         </div>

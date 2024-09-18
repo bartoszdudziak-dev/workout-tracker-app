@@ -10,27 +10,34 @@ import ButtonIcon from '../../ui/ButtonIcon';
 import Modal from '../../ui/Modal';
 import ConfirmDelete from '../../ui/ConfirmDelete';
 import PlanForm from './PlanForm';
-
-import { Link } from 'react-router-dom';
-import { useState } from 'react';
 import PlanOperationButton from './PlanOperationButton';
+
+import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
 function PlanCard({ plan }) {
   const { name, exercises, date, id } = plan;
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [isSettingButtonHover, setIsSettingButtonHover] = useState(false);
 
   const exercisesNum = exercises.length;
 
+  const navigate = useNavigate();
+
   function handleOpenSettings(e) {
-    e.preventDefault();
+    e.stopPropagation();
     setIsSettingsOpen((open) => !open);
   }
 
   return (
     <Modal>
-      <Link
-        to={isSettingsOpen ? null : `/workouts/new/${id}`}
-        className={`relative flex aspect-square flex-col justify-between overflow-clip rounded-md p-3 leading-3 shadow-lg outline-none transition-all duration-200 hover:scale-105 focus-visible:ring-2 focus-visible:ring-accent-primary xs:p-5 md:rounded-lg ${!isSettingsOpen && 'cursor-pointer'} }`}
+      <div
+        onClick={() =>
+          !isSettingsOpen &&
+          !isSettingButtonHover &&
+          navigate(`/workouts/new/${id}`)
+        }
+        className={`relative flex aspect-square flex-col justify-between overflow-clip rounded-md bg-primary p-3 leading-3 shadow-lg outline-none transition-all duration-500 hover:scale-105 focus-visible:ring-2 focus-visible:ring-accent-primary xs:p-5 md:rounded-lg ${isSettingsOpen ? 'cursor-default' : 'cursor-pointer'}`}
       >
         <h3 className='line-clamp-2 text-sm font-bold uppercase leading-5 tracking-wider text-accent-primary xs:text-base'>
           {name}
@@ -65,6 +72,8 @@ function PlanCard({ plan }) {
             icon={isSettingsOpen ? <TbArrowNarrowLeft /> : <TbSettings />}
             type='secondary'
             onClick={handleOpenSettings}
+            onMouseEnter={() => setIsSettingButtonHover(true)}
+            onMouseLeave={() => setIsSettingButtonHover(false)}
           />
         </div>
 
@@ -82,7 +91,7 @@ function PlanCard({ plan }) {
         <Modal.Window size='large' name='planForm'>
           <PlanForm session='edit' plan={plan} />
         </Modal.Window>
-      </Link>
+      </div>
     </Modal>
   );
 }

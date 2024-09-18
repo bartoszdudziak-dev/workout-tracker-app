@@ -18,6 +18,8 @@
 
     --accent-color-primary: rgb(69, 16, 105);
     --ring-offset-color: white;
+
+    color-scheme: light;
   }
 
   &.dark {
@@ -34,11 +36,15 @@
 
     --accent-color-primary: rgb(202, 153, 234);
     --ring-offset-color: black;
+
+    color-scheme: dark;
   }
 }
 
 * {
-  transition: background-color 500ms;
+  transition:
+    background-color 500ms,
+    color-scheme 500ms;
 }
 
 nav li:has(a.active) {

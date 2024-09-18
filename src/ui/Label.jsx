@@ -4,7 +4,7 @@ function Label({ children, htmlFor, srOnly = false }) {
       className={
         srOnly
           ? 'sr-only'
-          : 'text-secondary w-fit text-xs font-semibold uppercase tracking-widest lg:text-sm'
+          : 'w-fit text-xs font-semibold uppercase tracking-wider text-secondary lg:text-sm'
       }
       htmlFor={htmlFor}
     >

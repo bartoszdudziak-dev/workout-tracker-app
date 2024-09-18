@@ -1,17 +1,11 @@
 import { format } from 'date-fns';
 
 export const MAX_MOBILE_WIDTH = '768px';
-export const DEFAULT_PLAN_INPUTS_NUM = 3;
 
-// Testing
-export const fakePlan = {
-  planName: 'Fake plan',
-  exercises: ['Bench press', 'Bicep Curl', 'Deadlift', 'Squat', 'Pull Up'].map(
-    (exercise) => {
-      return { name: exercise };
-    },
-  ),
-};
+export const DEFAULT_PLAN_EXERCISES = 3;
+export const DEFAULT_WORKOUT_EXERCISES = 1;
+export const DEFAULT_WORKOUT_SETS = 3;
+export const MIN_INPUT_LENGTH = 3;
 
 export const fakeWorkouts = [
   {

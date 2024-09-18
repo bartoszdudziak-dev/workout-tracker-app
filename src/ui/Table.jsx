@@ -29,7 +29,7 @@ function Row({ children }) {
 
   return (
     <div
-      className={`grid ${columns} place-items-center gap-0.5 px-1 py-1 text-xs sm:text-sm md:py-2 md:text-base`}
+      className={`grid ${columns} place-items-center gap-0.5 px-1 py-1 text-xs sm:text-sm md:py-0.5 md:text-base`}
     >
       {children}
     </div>

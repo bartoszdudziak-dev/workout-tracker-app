@@ -1,13 +1,8 @@
-import ButtonBack from './ButtonBack';
-
 function PageTitle({ title = '' }) {
   return (
-    <div className='mb-6 space-y-2 md:mb-10'>
-      <ButtonBack />
-      <h2 className='text-xl font-bold uppercase tracking-widest text-accent-primary overline sm:text-2xl'>
-        {title}
-      </h2>
-    </div>
+    <h2 className='mb-6 text-xl font-bold uppercase tracking-widest text-accent-primary overline sm:text-2xl md:mb-10'>
+      {title}
+    </h2>
   );
 }
 
