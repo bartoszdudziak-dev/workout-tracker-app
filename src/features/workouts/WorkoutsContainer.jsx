@@ -6,12 +6,9 @@ import AddWorkoutButton from './AddWorkoutButton';
 import { useState } from 'react';
 import { fakeWorkouts } from '../../consts';
 import WorkoutForm from './WorkoutForm';
-import { useWorkouts } from './useWorkouts';
 
 function WorkoutsContainer() {
   const [curOpen, setCurOpen] = useState(null);
-  const { data } = useWorkouts();
-  console.log(data);
 
   return (
     <div className='space-y-4'>
