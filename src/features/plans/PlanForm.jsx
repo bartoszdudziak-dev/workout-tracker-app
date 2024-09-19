@@ -9,10 +9,12 @@ import ButtonIcon from '../../ui/ButtonIcon';
 import FormRow from '../../ui/FormRow';
 import Input from '../../ui/Input';
 import PlanExerciseField from './PlanExerciseField';
+import SpinnerMini from '../../ui/SpinnerMini';
 
 import { useFieldArray, useForm } from 'react-hook-form';
 import { useEffect } from 'react';
 import { useCreatePlan } from './useCreatePlan';
+import { useUpdatePlan } from './useUpdatePlan';
 
 function PlanForm({ session, plan, closeModalWindow }) {
   const isCreateSession = session === 'create';
@@ -22,11 +24,14 @@ function PlanForm({ session, plan, closeModalWindow }) {
         exercises: new Array(DEFAULT_PLAN_EXERCISES).fill({ name: '' }),
       }
     : {
-        planName: plan.name,
-        exercises: plan.exercises.map((exercise) => {
-          return { name: exercise };
+        planName: plan.plan_name,
+        exercises: plan.plan_exercises.map((exercise) => {
+          return { name: exercise.name };
         }),
       };
+
+  const { createPlan, isCreating } = useCreatePlan();
+  const { updatePlan, isUpdating } = useUpdatePlan();
 
   const {
     control,
@@ -49,27 +54,21 @@ function PlanForm({ session, plan, closeModalWindow }) {
     control,
     name: 'exercises',
   });
-
   const exercisesNum = exercises.length;
 
-  const { createPlan, isCreating } = useCreatePlan();
-  const isEditing = false;
-
-  function handleClearForm() {
+  const handleClearForm = () => {
     exercises.forEach((_, index) => setValue(`exercises.${index}.name`, ''));
     setFocus(`exercises.${0}.name`);
-  }
+  };
 
-  function handleDeleteExercise(index) {
+  const handleDeleteExercise = (index) => {
     if (exercisesNum === 1) return;
     remove(index);
-  }
+  };
 
-  function handleAddExercise() {
-    append({ name: '' });
-  }
+  const handleAddExercise = () => append({ name: '' });
 
-  function handleSwapUp(index) {
+  const handleSwapUp = (index) => {
     if (index === 0) {
       move(index, exercisesNum - 1);
       setFocus(`exercises.${exercisesNum - 1}.name`);
@@ -77,9 +76,9 @@ function PlanForm({ session, plan, closeModalWindow }) {
       swap(index, index - 1);
       setFocus(`exercises.${index - 1}.name`);
     }
-  }
+  };
 
-  function handleSwapDown(index) {
+  const handleSwapDown = (index) => {
     if (index === exercisesNum - 1) {
       move(index, 0);
       setFocus(`exercises.${0}.name`);
@@ -87,16 +86,29 @@ function PlanForm({ session, plan, closeModalWindow }) {
       swap(index, index + 1);
       setFocus(`exercises.${index + 1}.name`);
     }
-  }
+  };
 
-  function onSubmit({ planName, exercises }) {
+  const onSubmit = ({ planName, exercises }) => {
+    console.log(planName, exercises);
     if (isCreateSession)
       createPlan(
         { planName, exercises },
         { onSuccess: () => closeModalWindow() },
       );
-  }
-
+    else {
+      const updatedPlan = {
+        plan_name: planName,
+        plan_exercises: exercises,
+      };
+      updatePlan(
+        {
+          updatedPlan,
+          id: plan.id,
+        },
+        { onSuccess: () => closeModalWindow() },
+      );
+    }
+  };
   useEffect(() => setFocus('planName'), [setFocus]);
 
   return (
@@ -104,14 +116,17 @@ function PlanForm({ session, plan, closeModalWindow }) {
       className='mx-auto p-6 sm:p-8 md:p-12'
       onSubmit={handleSubmit(onSubmit)}
     >
-      <FormTitle title={isCreateSession ? 'Create new plan' : 'Edit plan'} />
+      <div className='flex items-center gap-4'>
+        <FormTitle title={isCreateSession ? 'Create new plan' : 'Edit plan'} />
+        {(isCreating || isUpdating) && <SpinnerMini />}
+      </div>
 
       <div className='space-y-4 sm:space-y-6 md:space-y-8'>
         <div className='sm:w-3/5'>
           <FormRow>
             <Label htmlFor='planName'>Plan Name</Label>
             <Input
-              disabled={isCreating || isEditing}
+              disabled={isCreating || isUpdating}
               id='planName'
               name='planName'
               size='large'
@@ -140,7 +155,7 @@ function PlanForm({ session, plan, closeModalWindow }) {
           <div className='scroll-gutter-stable max-h-[50dvh] divide-y divide-tetiary overflow-y-auto overflow-x-clip rounded border border-tetiary px-2 py-1 shadow-inner sm:max-h-[45dvh] sm:px-4 sm:py-1.5 md:max-h-[35vh]'>
             {exercises.map((exercise, index) => (
               <PlanExerciseField
-                disabled={isCreating || isEditing}
+                disabled={isCreating || isUpdating}
                 key={exercise.id}
                 exercise={exercise}
                 index={index}
@@ -158,14 +173,14 @@ function PlanForm({ session, plan, closeModalWindow }) {
 
       <div className='mt-6 flex items-center justify-between sm:mt-8 md:mt-10'>
         <ButtonIcon
-          disabled={isCreating || isEditing}
+          disabled={isCreating || isUpdating}
           icon={<TbPlus />}
           onClick={handleAddExercise}
         />
 
-        <div className='space-x-4 sm:space-x-6 md:space-x-8'>
+        <div className='flex space-x-4 sm:space-x-6 md:space-x-8'>
           <Button
-            disabled={isCreating || isEditing}
+            disabled={isCreating || isUpdating}
             type='secondary'
             size='large'
             onClick={handleClearForm}
@@ -174,7 +189,7 @@ function PlanForm({ session, plan, closeModalWindow }) {
           </Button>
 
           <Button
-            disabled={isCreating || isEditing || Object.keys(errors).length}
+            disabled={isCreating || isUpdating || Object.keys(errors).length}
             htmlType='submit'
             size='large'
           >

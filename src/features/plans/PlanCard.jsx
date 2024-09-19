@@ -1,4 +1,7 @@
+import { formatDate } from '../../utils/helpers';
+
 import { RiDeleteBinLine } from 'react-icons/ri';
+
 import {
   TbArrowNarrowLeft,
   TbCopyPlus,
@@ -14,9 +17,20 @@ import PlanOperationButton from './PlanOperationButton';
 
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { useDeletePlan } from './useDeletePlan';
+import { useCreatePlan } from './useCreatePlan';
+import SpinnerMini from '../../ui/SpinnerMini';
 
 function PlanCard({ plan }) {
-  const { name, exercises, date, id } = plan;
+  const { deletePlan, isDeleting } = useDeletePlan();
+  const { createPlan, isCreating } = useCreatePlan();
+
+  const {
+    id,
+    plan_name: name,
+    plan_exercises: exercises,
+    created_at: date,
+  } = plan;
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isSettingButtonHover, setIsSettingButtonHover] = useState(false);
 
@@ -27,6 +41,10 @@ function PlanCard({ plan }) {
   function handleOpenSettings(e) {
     e.stopPropagation();
     setIsSettingsOpen((open) => !open);
+  }
+
+  function handleCopyPlan() {
+    createPlan({ planName: `Copy of ${name}`, exercises });
   }
 
   return (
@@ -52,7 +70,12 @@ function PlanCard({ plan }) {
                 </Modal.Open>
               </li>
               <li className='flex w-full justify-center py-[5%] xs:px-3 xs:py-2'>
-                <PlanOperationButton text='Copy' icon={<TbCopyPlus />} />
+                <PlanOperationButton
+                  text='Copy'
+                  icon={<TbCopyPlus />}
+                  onClick={handleCopyPlan}
+                  disabled={isCreating}
+                />
               </li>
               <li className='flex w-full justify-center py-[5%] xs:px-3 xs:py-2'>
                 <Modal.Open opens='delete'>
@@ -63,6 +86,11 @@ function PlanCard({ plan }) {
                 </Modal.Open>
               </li>
             </ul>
+            {isCreating && (
+              <span className='absolute bottom-[10%] right-[10%]'>
+                <SpinnerMini />
+              </span>
+            )}
           </div>
         )}
 
@@ -81,11 +109,16 @@ function PlanCard({ plan }) {
           <span className='font-bold'>
             {exercisesNum} {exercisesNum === 1 ? 'exercise' : 'exercises'}
           </span>
-          <span>{date}</span>
+          <span>{formatDate(date)}</span>
         </div>
 
         <Modal.Window name='delete'>
-          <ConfirmDelete resource='plan' details={name} />
+          <ConfirmDelete
+            resource='plan'
+            details={name}
+            onConfirm={() => deletePlan(id)}
+            disabled={isDeleting}
+          />
         </Modal.Window>
 
         <Modal.Window size='large' name='planForm'>

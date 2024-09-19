@@ -8,6 +8,7 @@ function ButtonBack() {
   const location = useLocation();
   const navigate = useNavigate();
 
+  // Prevent from leave app if app history is empty
   const isHistoryEmpty = location.key === 'default';
 
   return (

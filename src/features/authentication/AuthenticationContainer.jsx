@@ -10,7 +10,6 @@ import { useNavigate } from 'react-router-dom';
 
 function AuthenticationContainer() {
   const [isLogin, setIsLogin] = useState(true);
-
   const { data: user } = useUser();
   const navigate = useNavigate();
 

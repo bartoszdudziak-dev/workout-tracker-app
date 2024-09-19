@@ -78,7 +78,7 @@ function Window({ size = 'medium', name, children }) {
           ref={modalWindowRef}
           className={`fixed left-1/2 top-1/2 h-max w-full -translate-x-1/2 -translate-y-1/2 overflow-hidden border border-tetiary bg-primary shadow-2xl sm:rounded-md md:rounded-lg ${windowSize[size]}`}
         >
-          <span className='absolute right-5 top-5'>
+          <span className='absolute right-5 top-5 z-50'>
             <ButtonIcon
               type='secondary'
               size='large'

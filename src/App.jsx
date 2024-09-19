@@ -21,7 +21,7 @@ function App() {
         <Toaster
           toastOptions={{
             className: 'bg-secondary text-primary font-semibold px-4 rounded',
-            duration: 6000,
+            duration: 5000,
           }}
         />
       </DarkModeProvider>

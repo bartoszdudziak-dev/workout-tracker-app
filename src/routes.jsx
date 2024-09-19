@@ -11,7 +11,10 @@ import ProtectedRoute from './features/authentication/ProtectedRoute';
 
 const router = createBrowserRouter([
   { path: '/', element: <Navigate to='/authentication' /> },
-  { path: '/authentication', element: <Authentication /> },
+  {
+    path: '/authentication',
+    element: <Authentication />,
+  },
   {
     element: (
       <ProtectedRoute>

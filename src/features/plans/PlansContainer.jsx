@@ -2,13 +2,16 @@ import AddPlanButton from './AddPlanButton';
 import PlanCard from './PlanCard';
 import Modal from '../../ui/Modal';
 import PlanForm from './PlanForm';
+import Spinner from '../../ui/Spinner';
 
 import { useLayout } from '../../context/LayoutContext';
-
-import { fakePlans } from '../../consts';
+import { usePlans } from './usePlans';
 
 function PlansContainer() {
   const { isMobile, isNavOpen } = useLayout();
+  const { plans, isLoading } = usePlans();
+
+  if (isLoading) return <Spinner />;
 
   return (
     <Modal>
@@ -19,9 +22,9 @@ function PlansContainer() {
           <AddPlanButton />
         </Modal.Open>
 
-        {fakePlans.map((plan) => (
-          <PlanCard plan={plan} key={plan.id} />
-        ))}
+        {plans.length > 0
+          ? plans.map((plan) => <PlanCard plan={plan} key={plan.id} />)
+          : null}
       </div>
 
       <Modal.Window size='large' name='planForm'>

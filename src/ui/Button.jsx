@@ -20,7 +20,7 @@ function Button({
     <button
       disabled={disabled}
       onClick={onClick}
-      className={`rounded font-semibold uppercase tracking-widest shadow-md outline-none transition-all duration-200 hover:scale-105 hover:opacity-85 focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-4 focus-visible:ring-offset-offsetColor active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 disabled:transition-none hover:disabled:scale-100 hover:disabled:opacity-50 ${buttonSize[size]} ${buttonType[type]}`}
+      className={`flex items-center justify-center gap-1 rounded font-semibold uppercase tracking-widest shadow-md outline-none transition-all duration-200 hover:scale-105 hover:opacity-85 focus-visible:ring-2 focus-visible:ring-accent-primary focus-visible:ring-offset-4 focus-visible:ring-offset-offsetColor active:scale-95 disabled:cursor-not-allowed disabled:opacity-50 disabled:transition-none hover:disabled:scale-100 hover:disabled:opacity-50 ${buttonSize[size]} ${buttonType[type]}`}
       type={htmlType}
     >
       {children}
