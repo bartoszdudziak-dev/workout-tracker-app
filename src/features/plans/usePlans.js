@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 export function usePlans() {
   const {
     data: plans,
-    isLoading,
+    isPending: isLoading,
     error,
   } = useQuery({
     queryFn: getPlans,

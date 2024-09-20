@@ -5,6 +5,7 @@ import Label from '../../ui/Label';
 import Input from '../../ui/Input';
 import ButtonIcon from '../../ui/ButtonIcon';
 import WorkoutSetsField from './WorkoutSetsField';
+
 import { MIN_INPUT_LENGTH } from '../../consts';
 
 function WorkoutExerciseField({
@@ -15,6 +16,7 @@ function WorkoutExerciseField({
   exercisesNum,
   onDelete,
   errors,
+  disabled,
 }) {
   return (
     <div className='relative grid gap-4 py-4 md:py-6'>
@@ -26,6 +28,7 @@ function WorkoutExerciseField({
         <div className='flex items-center justify-between gap-2 md:w-3/4'>
           <span className='text-xs font-bold text-accent-primary sm:text-sm md:text-base'>{`#${index + 1}`}</span>
           <Input
+            disabled={disabled}
             id={exercise.id}
             register={register}
             defaultValue=''
@@ -39,7 +42,7 @@ function WorkoutExerciseField({
             error={errors?.exercises?.[index]?.name}
           />
           <ButtonIcon
-            disabled={exercisesNum === 1}
+            disabled={exercisesNum === 1 || disabled}
             icon={<RiDeleteBinLine />}
             onClick={() => onDelete(index)}
           />
@@ -51,6 +54,7 @@ function WorkoutExerciseField({
           register={register}
           control={control}
           errors={errors}
+          disabled={disabled}
         />
       </FormRow>
     </div>

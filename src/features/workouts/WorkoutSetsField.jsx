@@ -7,7 +7,13 @@ import ButtonIcon from '../../ui/ButtonIcon';
 
 import { useFieldArray } from 'react-hook-form';
 
-function WorkoutSetsField({ register, control, exerciseIndex, errors }) {
+function WorkoutSetsField({
+  register,
+  control,
+  exerciseIndex,
+  errors,
+  disabled,
+}) {
   const {
     fields: sets,
     append,
@@ -47,6 +53,7 @@ function WorkoutSetsField({ register, control, exerciseIndex, errors }) {
               srOnly={true}
             >{`Reps of set ${index + 1}`}</Label>
             <Input
+              disabled={disabled}
               type='number'
               min={1}
               size='small'
@@ -66,6 +73,7 @@ function WorkoutSetsField({ register, control, exerciseIndex, errors }) {
               srOnly={true}
             >{`Weight of set ${index + 1}`}</Label>
             <Input
+              disabled={disabled}
               type='number'
               min={0}
               size='small'
@@ -81,7 +89,7 @@ function WorkoutSetsField({ register, control, exerciseIndex, errors }) {
             />
 
             <ButtonIcon
-              disabled={setsNum === 1}
+              disabled={setsNum === 1 || disabled}
               type='secondary'
               icon={<RiDeleteBinLine />}
               onClick={() => handleDeleteSet(index)}
@@ -91,7 +99,12 @@ function WorkoutSetsField({ register, control, exerciseIndex, errors }) {
       </div>
 
       <div className='absolute bottom-0 right-3'>
-        <ButtonIcon icon={<TbPlus />} type='secondary' onClick={handleAddSet} />
+        <ButtonIcon
+          icon={<TbPlus />}
+          type='secondary'
+          onClick={handleAddSet}
+          disabled={disabled}
+        />
       </div>
     </div>
   );

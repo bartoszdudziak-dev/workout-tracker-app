@@ -7,10 +7,9 @@ import Modal from '../../ui/Modal';
 import { useLayout } from '../../context/LayoutContext';
 import { useState } from 'react';
 
-function WorkoutOperations({ isOpen }) {
+function WorkoutOperations({ isOpen, handleCopyWorkout, isCreating }) {
   const { isMobile } = useLayout();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
   function toggleMenu() {
     setIsMenuOpen((open) => !open);
   }
@@ -39,6 +38,8 @@ function WorkoutOperations({ isOpen }) {
                 icon={<TbCopyPlus />}
                 type='secondary'
                 size={isOpen ? 'xl' : 'medium'}
+                onClick={handleCopyWorkout}
+                disabled={isCreating}
               />
               <Modal.Open opens='delete'>
                 <ButtonIcon
@@ -58,7 +59,12 @@ function WorkoutOperations({ isOpen }) {
       <Modal.Open opens='workoutForm'>
         <ButtonIcon icon={<TbEdit />} type='secondary' />
       </Modal.Open>
-      <ButtonIcon icon={<TbCopyPlus />} type='secondary' />
+      <ButtonIcon
+        icon={<TbCopyPlus />}
+        type='secondary'
+        onClick={handleCopyWorkout}
+        disabled={isCreating}
+      />
 
       <Modal.Open opens='delete'>
         <ButtonIcon icon={<RiDeleteBinLine />} type='secondary' />

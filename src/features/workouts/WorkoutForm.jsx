@@ -16,11 +16,14 @@ import Input from '../../ui/Input';
 import Button from '../../ui/Button';
 import ButtonIcon from '../../ui/ButtonIcon';
 import WorkoutExerciseField from './WorkoutExerciseField';
+import SpinnerMini from '../../ui/SpinnerMini';
 
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { useEffect } from 'react';
+import { useCreateWorkout } from './useCreateWorkout';
+import { useUpdateWorkout } from './useUpdateWorkout';
 
-function WorkoutForm({ session, workout }) {
+function WorkoutForm({ session, workout, closeModalWindow }) {
   const isCreateSession = session === 'create';
 
   const values = isCreateSession
@@ -33,14 +36,12 @@ function WorkoutForm({ session, workout }) {
         }),
       }
     : {
-        workoutName: workout.name,
-        workoutDate: workout.date,
+        workoutName: workout.workout_name,
+        workoutDate: new Date(workout.workout_date),
         exercises: workout.exercises.map((exercise) => {
           return {
-            name: exercise.name,
-            sets: exercise.sets.map((set) => {
-              return { reps: set.reps, weight: set.weight };
-            }),
+            name: exercise.exercise_name,
+            sets: exercise.sets.map((set) => set.set),
           };
         }),
       };
@@ -66,6 +67,9 @@ function WorkoutForm({ session, workout }) {
 
   const exercisesNum = exercises.length;
 
+  const { createWorkout, isCreating } = useCreateWorkout();
+  const { updateWorkout, isUpdating } = useUpdateWorkout();
+
   function handleAddExercise() {
     append({ name: '', sets: [{ reps: '', weight: '' }] });
   }
@@ -76,16 +80,14 @@ function WorkoutForm({ session, workout }) {
   }
 
   function onSubmit(data) {
-    // ISO STRING NEED TO BE
-    const { workoutDate } = data;
-    console.log(typeof workoutDate);
-    isCreateSession
-      ? console.log('create: ', data)
-      : console.log('edit: ', data);
-  }
-
-  function onError() {
-    console.log(errors);
+    if (isCreateSession)
+      createWorkout(data, { onSuccess: () => closeModalWindow() });
+    else {
+      updateWorkout({
+        id: workout.id,
+        workout: data,
+      });
+    }
   }
 
   useEffect(() => setFocus('workoutName'), [setFocus]);
@@ -93,17 +95,20 @@ function WorkoutForm({ session, workout }) {
   return (
     <form
       className='mx-auto px-6 py-4 sm:px-8 sm:py-6 md:px-10 md:py-8'
-      onSubmit={handleSubmit(onSubmit, onError)}
+      onSubmit={handleSubmit(onSubmit)}
     >
-      <FormTitle
-        title={isCreateSession ? 'Create new workout' : 'Edit workout'}
-      />
-
+      <div className='flex items-center gap-4'>
+        <FormTitle
+          title={isCreateSession ? 'Create new workout' : 'Edit workout'}
+        />
+        {(isCreating || isUpdating) && <SpinnerMini />}
+      </div>
       <div className='space-y-4 sm:space-y-6 lg:space-y-8'>
         <div className='grid grid-cols-[0.6fr_0.4fr] gap-2 sm:grid-cols-[1fr_0.5fr] sm:gap-4'>
           <FormRow>
             <Label htmlFor='workoutName'>Workout name</Label>
             <Input
+              disabled={isCreating || isUpdating}
               id='workoutName'
               register={register}
               name={`workoutName`}
@@ -127,7 +132,7 @@ function WorkoutForm({ session, workout }) {
                 render={({ field, fieldState: { error } }) => {
                   return (
                     <DatePicker
-                      disabled={false}
+                      disabled={isCreating || isUpdating}
                       autoComplete='off'
                       value={field.value}
                       inputRef={field.ref}
@@ -146,6 +151,7 @@ function WorkoutForm({ session, workout }) {
         <div className='scroll-gutter-stable max-h-[65dvh] divide-y-2 divide-accent-primary overflow-y-auto rounded border border-tetiary px-2 shadow-inner xs:max-h-[55dvh] md:max-h-[45dvh]'>
           {exercises.map((exercise, index) => (
             <WorkoutExerciseField
+              disabled={isCreating || isUpdating}
               key={exercise.id}
               exercise={exercise}
               index={index}
@@ -160,12 +166,16 @@ function WorkoutForm({ session, workout }) {
       </div>
 
       <div className='mt-4 flex items-center justify-between sm:mt-5 md:mt-6'>
-        <ButtonIcon icon={<TbPlus />} onClick={handleAddExercise} />
+        <ButtonIcon
+          icon={<TbPlus />}
+          onClick={handleAddExercise}
+          disabled={isCreating || isUpdating}
+        />
 
         <Button
           htmlType='submit'
           size='large'
-          disabled={Object.keys(errors).length}
+          disabled={isCreating || isUpdating || Object.keys(errors).length}
         >
           {isCreateSession ? 'Create' : 'Edit'}
         </Button>
