@@ -10,7 +10,7 @@ export const MIN_INPUT_LENGTH = 3;
 export const fakeWorkouts = [
   {
     id: 1,
-    date: format(new Date(), 'MM/dd/yyyy'),
+    date: format(new Date('29 August 2017 18:35 UTC'), 'MM/dd/yyyy'),
     name: 'Upper Body Push Day',
     exercises: [
       {
@@ -41,7 +41,7 @@ export const fakeWorkouts = [
   },
   {
     id: 2,
-    date: format(new Date(), 'MM/dd/yyyy'),
+    date: format(new Date('15 January 2012 22:47 UTC'), 'MM/dd/yyyy'),
     name: 'Lower Body Strength',
     exercises: [
       {
@@ -72,7 +72,7 @@ export const fakeWorkouts = [
   },
   {
     id: 3,
-    date: format(new Date(), 'MM/dd/yyyy'),
+    date: format(new Date('07 April 1999 10:13 UTC'), 'MM/dd/yyyy'),
     name: 'Full Body Workout',
     exercises: [
       {
@@ -103,7 +103,7 @@ export const fakeWorkouts = [
   },
   {
     id: 4,
-    date: format(new Date(), 'MM/dd/yyyy'),
+    date: format(new Date('20 November 2023 03:08 UTC'), 'MM/dd/yyyy'),
     name: 'Upper Body Pull Day',
     exercises: [
       {
@@ -134,7 +134,7 @@ export const fakeWorkouts = [
   },
   {
     id: 5,
-    date: format(new Date(), 'MM/dd/yyyy'),
+    date: format(new Date('02 September 2015 16:54 UTC'), 'MM/dd/yyyy'),
     name: 'Leg Day',
     exercises: [
       {
@@ -165,7 +165,7 @@ export const fakeWorkouts = [
   },
   {
     id: 6,
-    date: format(new Date(), 'MM/dd/yyyy'),
+    date: format(new Date('02 September 2015 16:54 UTC'), 'MM/dd/yyyy'),
     name: 'Chest & Triceps',
     exercises: [
       {
@@ -196,7 +196,7 @@ export const fakeWorkouts = [
   },
   {
     id: 7,
-    date: format(new Date(), 'MM/dd/yyyy'),
+    date: format(new Date('02 September 2015 16:54 UTC'), 'MM/dd/yyyy'),
     name: 'Back & Biceps',
     exercises: [
       {
@@ -227,7 +227,7 @@ export const fakeWorkouts = [
   },
   {
     id: 8,
-    date: format(new Date(), 'MM/dd/yyyy'),
+    date: format(new Date('02 September 2015 16:54 UTC'), 'MM/dd/yyyy'),
     name: 'Core Focus',
     exercises: [
       {
@@ -258,7 +258,7 @@ export const fakeWorkouts = [
   },
   {
     id: 9,
-    date: format(new Date(), 'MM/dd/yyyy'),
+    date: format(new Date('02 September 2015 16:54 UTC'), 'MM/dd/yyyy'),
     name: 'Upper Body Strength',
     exercises: [
       {
@@ -289,7 +289,7 @@ export const fakeWorkouts = [
   },
   {
     id: 10,
-    date: format(new Date(), 'MM/dd/yyyy'),
+    date: format(new Date('12 March 2005 07:22 UTC'), 'MM/dd/yyyy'),
     name: 'Cardio & Core',
     exercises: [
       {

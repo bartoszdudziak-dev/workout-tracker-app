@@ -56,3 +56,46 @@ nav li:has(a.active) {
 .scroll-gutter-stable {
   scrollbar-gutter: stable;
 }
+
+/* Date picker styles */
+.react-datepicker {
+  background-color: var(--bg-color-secondary);
+  border: 1px solid var(--text-color-tetiary);
+}
+
+.react-datepicker__header {
+  background-color: var(--accent-color-primary);
+}
+
+.react-datepicker__day {
+  background-color: var(--bg-color-tetiary);
+  color: var(--text-color-primary);
+  transition: all 300ms ease-out;
+  border-radius: 5px;
+}
+
+.react-datepicker__current-month,
+.react-datepicker__day-name {
+  color: var(--ring-offset-color);
+}
+
+.react-datepicker__day:hover {
+  background-color: var(--accent-color-primary);
+  opacity: 0.75;
+}
+
+.react-datepicker__day--selected {
+  background-color: var(--accent-color-primary);
+  color: var(--text-color-tetiary);
+  font-weight: bold;
+}
+
+.react-datepicker__triangle {
+  display: none;
+}
+
+@media only screen and (max-width: 768px) {
+  .react-datepicker-popper {
+    right: 0;
+  }
+}

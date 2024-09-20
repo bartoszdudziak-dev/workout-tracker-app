@@ -1,4 +1,4 @@
-import { IoIosCheckmarkCircle, IoIosCloseCircle } from 'react-icons/io';
+import { IoIosCloseCircle } from 'react-icons/io';
 
 function Input({
   type = 'text',
