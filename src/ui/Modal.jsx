@@ -12,14 +12,28 @@ import {
   useState,
 } from 'react';
 import ReactFocusLock from 'react-focus-lock';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const ModalContext = createContext();
 
 function Modal({ children }) {
   const [openName, setOpenName] = useState('');
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const open = setOpenName;
-  const close = () => setOpenName('');
+
+  // For case when its workoutForm modal we use location and navigate logic to redirect from
+  const close = () => {
+    setOpenName('');
+    if (location.pathname.startsWith('/workouts/new'))
+      navigate('/workouts', { replace: true });
+  };
+
+  useEffect(() => {
+    if (location.pathname.startsWith('/workouts/new'))
+      open('workoutCreateForm');
+  }, [location.pathname, open]);
 
   return (
     <ModalContext.Provider value={{ openName, open, close }}>
@@ -30,6 +44,7 @@ function Modal({ children }) {
 
 function Open({ children, opens: opensWindowName }) {
   const { open } = useContext(ModalContext);
+
   return cloneElement(children, { onClick: () => open(opensWindowName) });
 }
 

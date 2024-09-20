@@ -7,7 +7,7 @@ import {
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
-import { TbPlus } from 'react-icons/tb';
+import { TbExclamationCircle, TbPlus } from 'react-icons/tb';
 
 import FormTitle from '../../ui/FormTitle';
 import FormRow from '../../ui/FormRow';
@@ -17,25 +17,35 @@ import Button from '../../ui/Button';
 import ButtonIcon from '../../ui/ButtonIcon';
 import WorkoutExerciseField from './WorkoutExerciseField';
 import SpinnerMini from '../../ui/SpinnerMini';
+import Spinner from '../../ui/Spinner';
 
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useCreateWorkout } from './useCreateWorkout';
 import { useUpdateWorkout } from './useUpdateWorkout';
+import { usePlan } from '../plans/usePlan';
 
 function WorkoutForm({ session, workout, closeModalWindow }) {
-  const isCreateSession = session === 'create';
+  const { createWorkout, isCreating } = useCreateWorkout();
+  const { updateWorkout, isUpdating } = useUpdateWorkout();
+  const { plan, isLoading, error: planError } = usePlan();
 
-  const values = isCreateSession
-    ? {
+  const isCreateSession = session === 'create';
+  const [defaultFormValues, setDefaultFormValues] = useState(() => {
+    if (isCreateSession) {
+      return {
         workoutName: 'New workout',
         workoutDate: new Date(),
         exercises: new Array(DEFAULT_WORKOUT_EXERCISES).fill({
           name: '',
-          sets: new Array(DEFAULT_WORKOUT_SETS).fill({ reps: '', weight: '' }),
+          sets: new Array(DEFAULT_WORKOUT_SETS).fill({
+            reps: '',
+            weight: '',
+          }),
         }),
-      }
-    : {
+      };
+    } else {
+      return {
         workoutName: workout.workout_name,
         workoutDate: new Date(workout.workout_date),
         exercises: workout.exercises.map((exercise) => {
@@ -45,15 +55,18 @@ function WorkoutForm({ session, workout, closeModalWindow }) {
           };
         }),
       };
+    }
+  });
 
   const {
+    reset,
     control,
     register,
     handleSubmit,
     setFocus,
     formState: { errors },
   } = useForm({
-    defaultValues: values,
+    defaultValues: defaultFormValues,
   });
 
   const {
@@ -66,9 +79,6 @@ function WorkoutForm({ session, workout, closeModalWindow }) {
   });
 
   const exercisesNum = exercises.length;
-
-  const { createWorkout, isCreating } = useCreateWorkout();
-  const { updateWorkout, isUpdating } = useUpdateWorkout();
 
   function handleAddExercise() {
     append({ name: '', sets: [{ reps: '', weight: '' }] });
@@ -91,6 +101,43 @@ function WorkoutForm({ session, workout, closeModalWindow }) {
   }
 
   useEffect(() => setFocus('workoutName'), [setFocus]);
+
+  useEffect(() => {
+    if (plan) {
+      const newValues = {
+        workoutName: plan.plan_name,
+        workoutDate: new Date(),
+        exercises: plan.plan_exercises.map((exercise) => {
+          return {
+            name: exercise.name,
+            sets: new Array(DEFAULT_WORKOUT_SETS).fill({
+              reps: '',
+              weight: '',
+            }),
+          };
+        }),
+      };
+      setDefaultFormValues(newValues);
+      reset(newValues);
+    }
+  }, [isLoading, plan, reset]);
+
+  if (isLoading)
+    return (
+      <div className='flex h-[50dvh] items-center justify-center'>
+        <Spinner />
+      </div>
+    );
+
+  if (!isLoading && planError)
+    return (
+      <div className='flex h-[500px] items-center justify-center gap-4 text-lg uppercase tracking-wide text-primary md:text-2xl'>
+        <span className='text-xl md:text-4xl'>
+          <TbExclamationCircle />
+        </span>
+        <span>Plan not found</span>
+      </div>
+    );
 
   return (
     <form

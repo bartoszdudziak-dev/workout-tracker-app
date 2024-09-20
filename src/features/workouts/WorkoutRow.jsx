@@ -90,7 +90,7 @@ function WorkoutRow({ workout, onOpen, curOpen }) {
         />
       </Modal.Window>
 
-      <Modal.Window size='large' name='workoutForm'>
+      <Modal.Window size='large' name='workoutEditForm'>
         <WorkoutForm session='edit' workout={workout} />
       </Modal.Window>
     </Modal>

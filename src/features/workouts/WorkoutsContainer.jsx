@@ -7,21 +7,24 @@ import Spinner from '../../ui/Spinner';
 import { useState } from 'react';
 import WorkoutForm from './WorkoutForm';
 import { useWorkouts } from './useWorkouts';
+import { useNavigate } from 'react-router-dom';
 
 function WorkoutsContainer() {
   const [curOpen, setCurOpen] = useState(null);
   const { workoutsData, isLoading } = useWorkouts();
+  const navigate = useNavigate();
 
   if (isLoading) return <Spinner />;
 
   return (
     <div className='space-y-4'>
       <Modal>
-        <Modal.Open opens='workoutForm'>
-          <AddWorkoutButton />
-        </Modal.Open>
+        <AddWorkoutButton
+          onClick={() => navigate('/workouts/new')}
+          opens='workoutCreateForm'
+        />
 
-        <Modal.Window name='workoutForm' size='large'>
+        <Modal.Window name='workoutCreateForm' size='large'>
           <WorkoutForm session='create' />
         </Modal.Window>
 

@@ -27,7 +27,7 @@ function WorkoutOperations({ isOpen, handleCopyWorkout, isCreating }) {
         {isMenuOpen && (
           <div className='absolute inset-0 z-30 bg-backdrop-primary backdrop-blur-md'>
             <div className='flex h-full items-center justify-center gap-10'>
-              <Modal.Open opens='workoutForm'>
+              <Modal.Open opens='workoutEditForm'>
                 <ButtonIcon
                   icon={<TbEdit />}
                   type='secondary'
@@ -56,7 +56,7 @@ function WorkoutOperations({ isOpen, handleCopyWorkout, isCreating }) {
 
   return (
     <div className='flex flex-col gap-0.5 md:flex-row md:gap-1 lg:gap-2'>
-      <Modal.Open opens='workoutForm'>
+      <Modal.Open opens='workoutEditForm'>
         <ButtonIcon icon={<TbEdit />} type='secondary' />
       </Modal.Open>
       <ButtonIcon

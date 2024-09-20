@@ -38,3 +38,15 @@ export async function updatePlan({ updatedPlan, id }) {
 
   return data;
 }
+
+export async function getPlan(id) {
+  let { data, error } = await supabase
+    .from('plans')
+    .select('*')
+    .eq('id', id)
+    .single();
+
+  if (error) throw new Error(error.message);
+
+  return data;
+}
