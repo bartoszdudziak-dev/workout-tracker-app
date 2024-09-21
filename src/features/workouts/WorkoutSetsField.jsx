@@ -75,6 +75,7 @@ function WorkoutSetsField({
             <Input
               disabled={disabled}
               type='number'
+              step='0.05'
               min={0}
               size='small'
               id={`${set.id}-weight`}

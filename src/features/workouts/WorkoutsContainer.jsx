@@ -3,9 +3,9 @@ import WorkoutRow from './WorkoutRow';
 import Modal from '../../ui/Modal';
 import AddWorkoutButton from './AddWorkoutButton';
 import Spinner from '../../ui/Spinner';
+import WorkoutForm from './WorkoutForm';
 
 import { useState } from 'react';
-import WorkoutForm from './WorkoutForm';
 import { useWorkouts } from './useWorkouts';
 import { useNavigate } from 'react-router-dom';
 

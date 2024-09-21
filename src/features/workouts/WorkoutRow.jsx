@@ -7,12 +7,16 @@ import WorkoutDetails from './WorkoutDetails';
 import WorkoutForm from './WorkoutForm';
 import ConfirmDelete from '../../ui/ConfirmDelete';
 import Modal from '../../ui/Modal';
+import SpinnerMini from '../../ui/SpinnerMini';
+import AddRateButton from './AddRatingButton';
+
+import { ratingOptions } from './WorkoutRating';
 
 import { formatDate } from '../../utils/helpers';
 import { useDeleteWorkout } from './useDeleteWorkout';
 import { useCreateWorkout } from './useCreateWorkout';
-import SpinnerMini from '../../ui/SpinnerMini';
 import { useMobile } from '../../hooks/useMobile';
+import UpdateRateWindow from './AddRatingWindow';
 
 function WorkoutRow({ workout, onOpen, curOpen }) {
   const { isMobile } = useMobile();
@@ -23,8 +27,12 @@ function WorkoutRow({ workout, onOpen, curOpen }) {
     id,
     workout_name: name,
     workout_date: date,
+    workout_rate: rate,
     exercises: workout_exercises,
   } = workout;
+
+  // Get correct rating option object
+  const rating = ratingOptions.find((option) => option.value === rate);
 
   const exercises = workout_exercises.map((exercise) => {
     return {
@@ -41,6 +49,7 @@ function WorkoutRow({ workout, onOpen, curOpen }) {
       workoutName: `Copy of ${name}`,
       workoutDate: new Date(),
       exercises,
+      workoutRate: null,
     });
   };
 
@@ -71,7 +80,15 @@ function WorkoutRow({ workout, onOpen, curOpen }) {
             {name}
           </div>
           <div className='font-semibold text-secondary'>{formatDate(date)}</div>
-          <div className='text-base sm:text-xl md:text-2xl'>😁</div>
+          <div className='text-base sm:text-xl md:text-2xl'>
+            {rating ? (
+              <span className={rating.color}>{rating.icon}</span>
+            ) : (
+              <Modal.Open>
+                <AddRateButton />
+              </Modal.Open>
+            )}
+          </div>
           <WorkoutOperations
             isOpen={isOpen}
             handleCopyWorkout={handleCopyWorkout}
@@ -80,6 +97,10 @@ function WorkoutRow({ workout, onOpen, curOpen }) {
         </Table.Row>
         <WorkoutDetails exercises={exercises} isOpen={isOpen} />
       </div>
+
+      <Modal.Window>
+        <UpdateRateWindow workout={workout} />
+      </Modal.Window>
 
       <Modal.Window name='delete'>
         <ConfirmDelete

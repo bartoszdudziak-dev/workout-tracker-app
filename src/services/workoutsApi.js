@@ -1,6 +1,11 @@
 import supabase from './supabase';
 
-export async function createWorkout({ workoutName, workoutDate, exercises }) {
+export async function createWorkout({
+  workoutName,
+  workoutDate,
+  exercises,
+  workoutRate,
+}) {
   const dateISO = workoutDate.toISOString();
 
   const { data: workoutData, error: workoutError } = await supabase
@@ -9,6 +14,7 @@ export async function createWorkout({ workoutName, workoutDate, exercises }) {
       {
         workout_name: workoutName,
         workout_date: dateISO,
+        workout_rate: workoutRate,
       },
     ])
     .select('id')
@@ -51,6 +57,7 @@ export async function getWorkouts() {
     id,
     workout_name,
     workout_date,
+    workout_rate,
     exercises (
       id,
       exercise_name,
@@ -76,12 +83,23 @@ export async function deleteWorkout(id) {
 // To simplify, it will just delete old workout and create new one.
 export async function updateWorkout({
   id,
+  workoutRate,
   workout: { workoutName, workoutDate, exercises },
 }) {
   await createWorkout({
     workoutName,
     workoutDate,
+    workoutRate,
     exercises,
   });
   await deleteWorkout(id);
+}
+
+export async function updateRating({ id, rate }) {
+  const { error } = await supabase
+    .from('workouts')
+    .update({ workout_rate: rate })
+    .eq('id', id);
+
+  if (error) throw new Error(error.message);
 }

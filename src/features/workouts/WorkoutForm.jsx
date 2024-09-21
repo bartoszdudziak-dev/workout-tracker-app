@@ -18,6 +18,7 @@ import ButtonIcon from '../../ui/ButtonIcon';
 import WorkoutExerciseField from './WorkoutExerciseField';
 import SpinnerMini from '../../ui/SpinnerMini';
 import Spinner from '../../ui/Spinner';
+import WorkoutRate from './WorkoutRating';
 
 import { Controller, useFieldArray, useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
@@ -29,6 +30,8 @@ function WorkoutForm({ session, workout, closeModalWindow }) {
   const { createWorkout, isCreating } = useCreateWorkout();
   const { updateWorkout, isUpdating } = useUpdateWorkout();
   const { plan, isLoading, error: planError } = usePlan();
+
+  const [workoutRate, setWorkoutRate] = useState(workout?.workout_rate || null);
 
   const isCreateSession = session === 'create';
   const [defaultFormValues, setDefaultFormValues] = useState(() => {
@@ -91,11 +94,15 @@ function WorkoutForm({ session, workout, closeModalWindow }) {
 
   function onSubmit(data) {
     if (isCreateSession)
-      createWorkout(data, { onSuccess: () => closeModalWindow() });
+      createWorkout(
+        { ...data, workoutRate },
+        { onSuccess: () => closeModalWindow() },
+      );
     else {
       updateWorkout({
         id: workout.id,
         workout: data,
+        workoutRate,
       });
     }
   }
@@ -216,6 +223,12 @@ function WorkoutForm({ session, workout, closeModalWindow }) {
         <ButtonIcon
           icon={<TbPlus />}
           onClick={handleAddExercise}
+          disabled={isCreating || isUpdating}
+        />
+
+        <WorkoutRate
+          initialRate={workoutRate}
+          onRate={setWorkoutRate}
           disabled={isCreating || isUpdating}
         />
 

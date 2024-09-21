@@ -89,7 +89,6 @@ function PlanForm({ session, plan, closeModalWindow }) {
   };
 
   const onSubmit = ({ planName, exercises }) => {
-    console.log(planName, exercises);
     if (isCreateSession)
       createPlan(
         { planName, exercises },
