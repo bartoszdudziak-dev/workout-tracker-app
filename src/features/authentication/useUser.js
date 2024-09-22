@@ -3,10 +3,9 @@ import { getUser } from '../../services/authenticationApi';
 
 export function useUser() {
   const {
-    data,
+    data: user,
     error,
     isPending: isLoading,
-    isFetching,
   } = useQuery({
     queryKey: ['user'],
     queryFn: getUser,
@@ -15,7 +14,7 @@ export function useUser() {
     refetchOnWindowFocus: false,
   });
 
-  const isAuthenticated = data?.user?.role === 'authenticated';
+  const isAuthenticated = user?.role === 'authenticated';
 
-  return { data, error, isLoading, isFetching, isAuthenticated };
+  return { user, error, isLoading, isAuthenticated };
 }

@@ -5,19 +5,18 @@ import { useEffect } from 'react';
 import LoadingPage from '../../ui/LoadingPage';
 
 function ProtectedRoute({ children }) {
-  const { isAuthenticated, isLoading, isFetching } = useUser();
+  const { isAuthenticated, isLoading } = useUser();
   const navigate = useNavigate();
 
   // Protect app if user is not authenticated
   useEffect(
     function () {
-      if (!isAuthenticated && !isLoading && !isFetching)
-        navigate('/authentication');
+      if (!isAuthenticated && !isLoading) navigate('/authentication');
     },
-    [isLoading, isFetching, isAuthenticated, navigate],
+    [isLoading, isAuthenticated, navigate],
   );
 
-  if (isLoading || isFetching) return <LoadingPage />;
+  if (isLoading) return <LoadingPage />;
 
   if (isAuthenticated) return children;
 }

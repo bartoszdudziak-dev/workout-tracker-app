@@ -32,7 +32,7 @@ function ConfirmDelete({
           Cancel
         </Button>
         {disabled && <SpinnerMini />}
-        <Button size='large' onClick={onConfirm} disabled={disabled}>
+        <Button size='large' onClick={null} disabled={disabled}>
           Delete
         </Button>
       </div>

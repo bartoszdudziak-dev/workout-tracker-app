@@ -17,11 +17,9 @@ function AddRatingWindow({
 
   return (
     <div className='flex flex-col gap-10 p-6 md:gap-12 md:p-10'>
-      <h3 className='max-w-[80%] tracking-wider text-primary'>
+      <h3 className='text-lg tracking-wider text-primary xs:text-xl'>
         Rate the{' '}
-        <span className='inline-block font-semibold text-accent-primary'>
-          {name}
-        </span>
+        <span className='font-semibold text-accent-primary'>{name}</span>
       </h3>
       <div className='mx-auto'>
         <WorkoutRate onRate={setRate} />

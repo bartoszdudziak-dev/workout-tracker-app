@@ -29,7 +29,7 @@ function Input({
           autoComplete={autocomplete}
           disabled={disabled}
           defaultValue={defaultValue}
-          {...register(name, validation)}
+          {...register?.(name, validation)}
           {...props}
         />
         {error && size !== 'small' && (

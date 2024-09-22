@@ -23,7 +23,7 @@ function SecondaryNav() {
         <li>
           <ButtonIcon
             icon={<TbUserSquare />}
-            onClick={() => navigate('/settings')}
+            onClick={() => navigate('/account')}
             type='secondary'
             size='large'
           />
