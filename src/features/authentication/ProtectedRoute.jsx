@@ -8,6 +8,7 @@ function ProtectedRoute({ children }) {
   const { isAuthenticated, isLoading } = useUser();
   const navigate = useNavigate();
 
+  console.log(isAuthenticated);
   // Protect app if user is not authenticated
   useEffect(
     function () {

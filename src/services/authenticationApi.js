@@ -53,6 +53,7 @@ export async function updateUser({ firstName, lastName }) {
   return data;
 }
 
+// Do not work. Need to implement client side deleting user
 export async function deleteUser(id) {
   const { error } = await supabase.auth.admin.deleteUser(id);
 

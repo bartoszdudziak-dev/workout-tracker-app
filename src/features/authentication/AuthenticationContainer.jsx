@@ -10,7 +10,7 @@ import { useNavigate } from 'react-router-dom';
 
 function AuthenticationContainer() {
   const [isLogin, setIsLogin] = useState(true);
-  const { data: user } = useUser();
+  const { user } = useUser();
   const navigate = useNavigate();
 
   // Prevent from going to the authentication page if user is already logged

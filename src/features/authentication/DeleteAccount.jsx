@@ -25,7 +25,8 @@ function DeleteAccount() {
           </h3>
           <p className='text-sm leading-5 tracking-wider text-secondary md:text-base'>
             This operation is permanently cannot be undone! All your workouts
-            will disappear! <span className='font-bold'>(not avaliable)</span>
+            will disappear!{' '}
+            <span className='font-bold'>(not available yet)</span>
           </p>
         </div>
         <div className='mt-8 flex justify-end'>
