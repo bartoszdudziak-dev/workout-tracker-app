@@ -10,7 +10,7 @@ export function useSearchLastExerciseByName() {
 
   const {
     data,
-    isFetching: isSearching,
+    isLoading: isSearching,
     error,
   } = useQuery({
     queryFn: () =>

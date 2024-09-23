@@ -10,9 +10,8 @@ import { useState } from 'react';
 function WorkoutOperations({ isOpen, handleCopyWorkout, isCreating }) {
   const { isMobile } = useLayout();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  function toggleMenu() {
-    setIsMenuOpen((open) => !open);
-  }
+
+  const toggleMenu = () => setIsMenuOpen((open) => !open);
 
   if (isMobile)
     return (

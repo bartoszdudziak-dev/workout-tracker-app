@@ -2,9 +2,11 @@ import Button from '../../ui/Button';
 
 function AddWorkoutButton({ onClick }) {
   return (
-    <Button onClick={onClick} size='large'>
-      Add new
-    </Button>
+    <div className='mb-2 md:mb-6'>
+      <Button onClick={onClick} size='large'>
+        Add new
+      </Button>
+    </div>
   );
 }
 

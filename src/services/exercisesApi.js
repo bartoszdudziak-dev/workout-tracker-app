@@ -1,7 +1,6 @@
 import supabase from './supabase';
 
 export async function getLastExerciseByName(query) {
-  console.log(query);
   let { data, error } = await supabase
     .from('exercises')
     .select('*, sets(id, set)')

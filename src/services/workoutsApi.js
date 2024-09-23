@@ -49,7 +49,7 @@ export async function createWorkout({
   }
 }
 
-export async function getWorkouts() {
+export async function getWorkouts({ sortByColumn, orderColumn }) {
   const { data, error } = await supabase
     .from('workouts')
     .select(
@@ -65,10 +65,10 @@ export async function getWorkouts() {
         id,
         set
       )
-    )
+    ).
   `,
     )
-    .order('workout_date', { ascending: false });
+    .order(sortByColumn, { ascending: orderColumn });
 
   if (error) throw new Error(error.message);
 
