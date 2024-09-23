@@ -11,31 +11,36 @@ export const ratingOptions = [
     icon: <FaFaceFrown />,
     value: 1,
     color: 'text-red-400',
+    hover: 'hover:text-red-400',
   },
   {
     icon: <FaFaceFrownOpen />,
     value: 2,
     color: 'text-orange-400',
+    hover: 'hover:text-orange-400',
   },
   {
     icon: <FaFaceGrimace />,
     value: 3,
     color: 'text-yellow-400',
+    hover: 'hover:text-yellow-400',
   },
   {
     icon: <FaFaceGrin />,
     value: 4,
     color: 'text-lime-400',
+    hover: 'hover:text-lime-400',
   },
   {
     icon: <FaFaceGrinBeam />,
     value: 5,
     color: 'text-green-400',
+    hover: 'hover:text-green-400',
   },
 ];
 
 function RatingButton({
-  option: { icon, value, color },
+  option: { icon, value, color, hover },
   setRate,
   rate,
   onRate,
@@ -52,7 +57,7 @@ function RatingButton({
   return (
     <span
       role='button'
-      className={`${rate === value ? color : 'text-secondary'} hover:${color} text-2xl sm:text-3xl ${disabled ? 'pointer-events-none opacity-50 transition-none' : 'transition-all duration-300 hover:scale-105'}`}
+      className={`${rate === value ? color : 'text-secondary'} ${hover} text-2xl hover:opacity-70 sm:text-3xl ${disabled ? 'pointer-events-none opacity-50 transition-none' : 'transition-all duration-300 hover:scale-105'}`}
       value={value}
       onClick={handleSetRate}
     >

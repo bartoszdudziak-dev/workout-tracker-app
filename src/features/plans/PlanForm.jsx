@@ -1,5 +1,3 @@
-import { DEFAULT_PLAN_EXERCISES, MIN_INPUT_LENGTH } from '../../consts';
-
 import { TbPlus } from 'react-icons/tb';
 
 import FormTitle from '../../ui/FormTitle';
@@ -21,7 +19,11 @@ function PlanForm({ session, plan, closeModalWindow }) {
   const values = isCreateSession
     ? {
         planName: 'New Plan',
-        exercises: new Array(DEFAULT_PLAN_EXERCISES).fill({ name: '' }),
+        exercises: new Array(
+          Number(import.meta.env.VITE_DEFAULT_PLAN_EXERCISES),
+        ).fill({
+          name: '',
+        }),
       }
     : {
         planName: plan.plan_name,
@@ -133,7 +135,8 @@ function PlanForm({ session, plan, closeModalWindow }) {
               validation={{
                 required: 'This field is required',
                 validate: (value) =>
-                  value.trim().length >= MIN_INPUT_LENGTH ||
+                  value.trim().length >=
+                    Number(import.meta.env.VITE_MIN_INPUT_LENGTH) ||
                   'At least 3 characters required',
               }}
               error={errors?.planName}

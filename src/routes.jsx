@@ -5,7 +5,6 @@ import Authentication from './pages/Authentication';
 import Home from './pages/Home';
 import Workouts from './pages/Workouts';
 import Plans from './pages/Plans';
-import Settings from './pages/Settings';
 import Account from './pages/Account';
 import ProtectedRoute from './features/authentication/ProtectedRoute';
 
@@ -28,7 +27,6 @@ const router = createBrowserRouter([
       { path: '/workouts/new/:planId', element: <Workouts /> },
       { path: '/plans', element: <Plans /> },
       { path: '/account', element: <Account /> },
-      { path: '/settings', element: <Settings /> },
     ],
   },
 ]);

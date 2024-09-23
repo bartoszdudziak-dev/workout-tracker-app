@@ -1,9 +1,3 @@
-import {
-  DEFAULT_WORKOUT_EXERCISES,
-  DEFAULT_WORKOUT_SETS,
-  MIN_INPUT_LENGTH,
-} from '../../consts';
-
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 
@@ -39,9 +33,13 @@ function WorkoutForm({ session, workout, closeModalWindow }) {
       return {
         workoutName: 'New workout',
         workoutDate: new Date(),
-        exercises: new Array(DEFAULT_WORKOUT_EXERCISES).fill({
+        exercises: new Array(
+          Number(import.meta.env.VITE_DEFAULT_WORKOUT_EXERCISES),
+        ).fill({
           name: '',
-          sets: new Array(DEFAULT_WORKOUT_SETS).fill({
+          sets: new Array(
+            Number(import.meta.env.VITE_DEFAULT_WORKOUT_SETS),
+          ).fill({
             reps: '',
             weight: '',
           }),
@@ -67,6 +65,7 @@ function WorkoutForm({ session, workout, closeModalWindow }) {
     register,
     handleSubmit,
     setFocus,
+    getValues,
     formState: { errors },
   } = useForm({
     defaultValues: defaultFormValues,
@@ -117,7 +116,9 @@ function WorkoutForm({ session, workout, closeModalWindow }) {
         exercises: plan.plan_exercises.map((exercise) => {
           return {
             name: exercise.name,
-            sets: new Array(DEFAULT_WORKOUT_SETS).fill({
+            sets: new Array(
+              Number(import.meta.env.VITE_DEFAULT_WORKOUT_SETS),
+            ).fill({
               reps: '',
               weight: '',
             }),
@@ -170,7 +171,8 @@ function WorkoutForm({ session, workout, closeModalWindow }) {
               validation={{
                 required: 'This field is required',
                 validate: (value) =>
-                  value.trim().length >= MIN_INPUT_LENGTH ||
+                  value.trim().length >=
+                    Number(import.meta.env.VITE_MIN_INPUT_LENGTH) ||
                   'At least 3 characters required',
               }}
               error={errors?.workoutName}
@@ -214,6 +216,7 @@ function WorkoutForm({ session, workout, closeModalWindow }) {
               exercisesNum={exercisesNum}
               onDelete={handleDeleteExercise}
               errors={errors}
+              getValues={getValues}
             />
           ))}
         </div>

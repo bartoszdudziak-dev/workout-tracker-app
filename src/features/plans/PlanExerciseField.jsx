@@ -1,5 +1,3 @@
-import { MIN_INPUT_LENGTH } from '../../consts';
-
 import { TbArrowDown, TbArrowUp } from 'react-icons/tb';
 import { RiDeleteBinLine } from 'react-icons/ri';
 
@@ -40,7 +38,8 @@ function PlanExerciseField({
           validation={{
             required: 'This field is required',
             validate: (value) =>
-              value.trim().length >= MIN_INPUT_LENGTH ||
+              value.trim().length >=
+                Number(import.meta.env.VITE_MIN_INPUT_LENGTH) ||
               'At least 3 characters required',
           }}
           error={errors?.exercises?.[index]?.name}

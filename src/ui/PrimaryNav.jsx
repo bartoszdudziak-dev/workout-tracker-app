@@ -1,10 +1,4 @@
-import {
-  TbBarbell,
-  TbHome,
-  TbNotes,
-  TbSettings,
-  TbUserSquare,
-} from 'react-icons/tb';
+import { TbBarbell, TbHome, TbNotes, TbUserSquare } from 'react-icons/tb';
 
 import NavItem from './NavItem';
 
@@ -15,7 +9,6 @@ function PrimaryNav() {
         <NavItem to='/dashboard' text='Home' icon={<TbHome />} />
         <NavItem to='/workouts' text='Workouts' icon={<TbBarbell />} />
         <NavItem to='/plans' text='Plans' icon={<TbNotes />} />
-        <NavItem to='/settings' text='Settings' icon={<TbSettings />} />
         <NavItem to='/account' text='Account' icon={<TbUserSquare />} />
       </ul>
     </nav>

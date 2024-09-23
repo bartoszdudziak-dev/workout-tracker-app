@@ -4,7 +4,7 @@ function Logo() {
   const { isDarkMode } = useDarkMode();
 
   return (
-    <div className='space-y-3 text-wrap'>
+    <div className='space-y-6 text-wrap'>
       <img
         className={`mx-auto w-40 ${isDarkMode && 'brightness-75'} transition-all duration-500`}
         src='/logo.webp'

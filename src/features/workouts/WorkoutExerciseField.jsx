@@ -5,8 +5,8 @@ import Label from '../../ui/Label';
 import Input from '../../ui/Input';
 import ButtonIcon from '../../ui/ButtonIcon';
 import WorkoutSetsField from './WorkoutSetsField';
-
-import { MIN_INPUT_LENGTH } from '../../consts';
+import { useSearchLastExerciseByName } from './useSearchLastExerciseByName';
+import { useCallback, useEffect } from 'react';
 
 function WorkoutExerciseField({
   exercise,
@@ -17,7 +17,25 @@ function WorkoutExerciseField({
   onDelete,
   errors,
   disabled,
+  getValues,
 }) {
+  const {
+    data: lastExercise,
+    setQuery,
+    isSearching,
+  } = useSearchLastExerciseByName();
+
+  const handleSearchLastExercise = (e) => setQuery(e.target.value);
+
+  const setQueryCallback = useCallback(() => {
+    setQuery(getValues().exercises[index].name);
+  }, [setQuery, getValues, index]);
+
+  useEffect(() => {
+    if (getValues().exercises[index].name)
+      setQueryCallback(getValues().exercises[index].name);
+  }, [getValues, index, setQueryCallback]);
+
   return (
     <div className='relative grid gap-4 py-4 md:py-6'>
       <FormRow>
@@ -28,6 +46,7 @@ function WorkoutExerciseField({
         <div className='flex items-center justify-between gap-2 md:w-3/4'>
           <span className='text-xs font-bold text-accent-primary sm:text-sm md:text-base'>{`#${index + 1}`}</span>
           <Input
+            onChange={handleSearchLastExercise}
             disabled={disabled}
             id={exercise.id}
             register={register}
@@ -36,7 +55,8 @@ function WorkoutExerciseField({
             validation={{
               required: 'This field is required',
               validate: (value) =>
-                value.trim().length >= MIN_INPUT_LENGTH ||
+                value.trim().length >=
+                  Number(import.meta.env.VITE_MIN_INPUT_LENGTH) ||
                 'At least 3 characters required',
             }}
             error={errors?.exercises?.[index]?.name}
@@ -55,6 +75,8 @@ function WorkoutExerciseField({
           control={control}
           errors={errors}
           disabled={disabled}
+          lastExercise={lastExercise}
+          isSearching={isSearching}
         />
       </FormRow>
     </div>

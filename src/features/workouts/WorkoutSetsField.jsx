@@ -6,6 +6,7 @@ import Input from '../../ui/Input';
 import ButtonIcon from '../../ui/ButtonIcon';
 
 import { useFieldArray } from 'react-hook-form';
+import SpinnerMini from '../../ui/SpinnerMini';
 
 function WorkoutSetsField({
   register,
@@ -13,6 +14,8 @@ function WorkoutSetsField({
   exerciseIndex,
   errors,
   disabled,
+  isSearching,
+  lastExercise,
 }) {
   const {
     fields: sets,
@@ -24,7 +27,6 @@ function WorkoutSetsField({
   });
 
   const setsNum = sets.length;
-
   function handleAddSet() {
     append({ reps: '', weight: '' });
   }
@@ -107,6 +109,27 @@ function WorkoutSetsField({
           disabled={disabled}
         />
       </div>
+
+      {isSearching ? (
+        <div className='mt-2'>
+          <SpinnerMini />
+        </div>
+      ) : (
+        lastExercise && (
+          <div className='mt-2 w-fit max-w-[80%] rounded bg-secondary p-1 text-xs text-secondary'>
+            <div>
+              <span className=''>Last {lastExercise.exercise_name}</span>
+              <div className='flex flex-wrap gap-2'>
+                {lastExercise.sets.map((set) => (
+                  <div key={set.id}>
+                    {set.set.reps} x {set.set.weight}kg
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        )
+      )}
     </div>
   );
 }

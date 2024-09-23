@@ -12,7 +12,7 @@ export async function signup({ email, password, firstName, lastName }) {
     },
   });
 
-  if (error) throw new Error(error.message);
+  if (error) throw new Error('Sign up failed, user not created');
 
   return data;
 }

@@ -18,7 +18,7 @@ function DeleteAccount() {
 
   return (
     <Modal>
-      <div className='flex flex-col lg:justify-between'>
+      <div className='flex max-w-screen-xs flex-col lg:justify-between'>
         <div>
           <h3 className='mb-4 text-lg font-semibold uppercase tracking-widest text-primary sm:text-xl md:mb-6'>
             Delete Account
