@@ -50,7 +50,7 @@ export async function createWorkout({
 }
 
 export async function getWorkouts({ sortByColumn, orderColumn }) {
-  const { data, error } = await supabase
+  let { data, error } = await supabase
     .from('workouts')
     .select(
       `
@@ -71,6 +71,15 @@ export async function getWorkouts({ sortByColumn, orderColumn }) {
     .order(sortByColumn, { ascending: orderColumn });
 
   if (error) throw new Error(error.message);
+
+  // Sort sets by id in ascending order
+  data = data.map((workout) => ({
+    ...workout,
+    exercises: workout.exercises.map((exercise) => ({
+      ...exercise,
+      sets: exercise.sets.sort((a, b) => a.id - b.id),
+    })),
+  }));
 
   return data;
 }

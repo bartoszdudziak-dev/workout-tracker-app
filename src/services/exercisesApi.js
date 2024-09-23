@@ -9,5 +9,11 @@ export async function getLastExerciseByName(query) {
     .limit(1);
   if (error) throw new Error('Not found');
 
+  // Sort sets by id in ascending order
+  data = data.map((exercise) => ({
+    ...exercise,
+    sets: exercise.sets.sort((a, b) => a.id - b.id),
+  }));
+
   return data;
 }

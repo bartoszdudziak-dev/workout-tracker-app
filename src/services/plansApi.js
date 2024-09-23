@@ -15,7 +15,7 @@ export async function getPlans() {
   let { data, error } = await supabase
     .from('plans')
     .select('*')
-    .order('id', { ascending: false });
+    .order('created_at', { ascending: false });
 
   if (error) throw new Error(error.message);
 
