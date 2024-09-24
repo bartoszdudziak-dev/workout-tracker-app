@@ -2,11 +2,11 @@ import { createBrowserRouter, Navigate } from 'react-router-dom';
 
 import AppLayout from './ui/AppLayout';
 import Authentication from './pages/Authentication';
-import Home from './pages/Home';
 import Workouts from './pages/Workouts';
 import Plans from './pages/Plans';
 import Account from './pages/Account';
 import ProtectedRoute from './features/authentication/ProtectedRoute';
+import Dashboard from './pages/Dashboard';
 
 const router = createBrowserRouter([
   { path: '/', element: <Navigate to='/authentication' /> },
@@ -21,7 +21,7 @@ const router = createBrowserRouter([
       </ProtectedRoute>
     ),
     children: [
-      { path: '/dashboard', element: <Home /> },
+      { path: '/dashboard', element: <Dashboard /> },
       { path: '/workouts', element: <Workouts /> },
       { path: '/workouts/new', element: <Workouts /> },
       { path: '/workouts/new/:planId', element: <Workouts /> },

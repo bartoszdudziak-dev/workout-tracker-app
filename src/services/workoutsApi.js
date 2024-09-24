@@ -119,3 +119,20 @@ export async function updateRating({ id, rate }) {
 
   if (error) throw new Error(error.message);
 }
+
+export async function getWorkoutsAfterDate(date) {
+  const today = new Date();
+
+  const { data, error, count } = await supabase
+    .from('workouts')
+    .select('*', { count: 'exact' })
+    .gte('workout_date', date)
+    .lte('workout_date', today.toISOString({ end: true }));
+
+  if (error) {
+    console.error(error);
+    throw new Error('Bookings could not get loaded');
+  }
+
+  return { data, count };
+}
