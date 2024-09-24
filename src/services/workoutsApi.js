@@ -14,7 +14,7 @@ export async function createWorkout({
       {
         workout_name: workoutName,
         workout_date: dateISO,
-        workout_rate: workoutRate,
+        workout_rate: workoutRate || 0,
       },
     ])
     .select('id')
@@ -49,8 +49,13 @@ export async function createWorkout({
   }
 }
 
-export async function getWorkouts({ sortByColumn, orderColumn }) {
-  let { data, error } = await supabase
+export async function getWorkouts({ sortByColumn, orderColumn, page }) {
+  const fromWorkout =
+    (page - 1) * Number(import.meta.env.VITE_WORKOUTS_PER_PAGE);
+  const toWorkout =
+    fromWorkout + Number(import.meta.env.VITE_WORKOUTS_PER_PAGE) - 1;
+
+  let { data, error, count } = await supabase
     .from('workouts')
     .select(
       `
@@ -65,10 +70,12 @@ export async function getWorkouts({ sortByColumn, orderColumn }) {
         id,
         set
       )
-    ).
-  `,
     )
-    .order(sortByColumn, { ascending: orderColumn });
+  `,
+      { count: 'exact' },
+    )
+    .order(sortByColumn, { ascending: orderColumn === 'asc' })
+    .range(fromWorkout, toWorkout);
 
   if (error) throw new Error(error.message);
 
@@ -81,7 +88,7 @@ export async function getWorkouts({ sortByColumn, orderColumn }) {
     })),
   }));
 
-  return data;
+  return { data, count };
 }
 
 export async function deleteWorkout(id) {

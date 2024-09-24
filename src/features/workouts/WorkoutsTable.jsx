@@ -6,10 +6,11 @@ import Spinner from '../../ui/Spinner';
 import { useState } from 'react';
 import { useWorkouts } from './useWorkouts';
 import SortByOrder from '../../ui/SortByOrder';
+import Pagination from '../../ui/Pagination';
 
 function WorkoutsTable() {
   const [curOpen, setCurOpen] = useState(null);
-  const { workoutsData, isLoading } = useWorkouts();
+  const { workoutsData, isLoading, count } = useWorkouts();
 
   if (isLoading) return <Spinner />;
 
@@ -39,6 +40,9 @@ function WorkoutsTable() {
             />
           )}
         />
+        <Table.Footer>
+          <Pagination count={count} />
+        </Table.Footer>
       </Table>
     </>
   );

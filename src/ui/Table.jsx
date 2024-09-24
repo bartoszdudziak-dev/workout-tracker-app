@@ -42,7 +42,13 @@ function Body({ data, render }) {
   );
 }
 
-function Footer() {}
+function Footer({ children }) {
+  return (
+    <div className='bg-backdrop-secondary px-1 py-2 tracking-widest'>
+      {children}
+    </div>
+  );
+}
 
 Table.Header = Header;
 Table.Row = Row;
