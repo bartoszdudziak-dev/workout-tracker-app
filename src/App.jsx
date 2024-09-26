@@ -7,6 +7,8 @@ import { RouterProvider } from 'react-router-dom';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { Suspense } from 'react';
+import LoadingPage from './ui/LoadingPage';
 
 const queryClient = new QueryClient();
 
@@ -16,7 +18,9 @@ function App() {
       <ReactQueryDevtools initialIsOpen={false} />
       <DarkModeProvider>
         <LayoutProvider>
-          <RouterProvider router={router} />
+          <Suspense fallback={<LoadingPage />}>
+            <RouterProvider router={router} />
+          </Suspense>
         </LayoutProvider>
         <Toaster
           toastOptions={{

@@ -1,13 +1,15 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
+import { lazy } from 'react';
 
 import AppLayout from './ui/AppLayout';
-import Authentication from './pages/Authentication';
-import Workouts from './pages/Workouts';
-import Plans from './pages/Plans';
-import Account from './pages/Account';
 import ProtectedRoute from './features/authentication/ProtectedRoute';
-import Dashboard from './pages/Dashboard';
 import PageNotFound from './ui/PageNotFound';
+
+const Authentication = lazy(() => import('./pages/Authentication'));
+const Workouts = lazy(() => import('./pages/Workouts'));
+const Plans = lazy(() => import('./pages/Plans'));
+const Account = lazy(() => import('./pages/Account'));
+const Dashboard = lazy(() => import('./pages/Dashboard'));
 
 const router = createBrowserRouter([
   { path: '/', element: <Navigate to='/authentication' /> },
