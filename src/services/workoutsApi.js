@@ -29,6 +29,7 @@ export async function createWorkout({
         {
           workout_id: workoutData.id,
           exercise_name: exercise.name,
+          created_at: dateISO,
         },
       ])
       .select('id')

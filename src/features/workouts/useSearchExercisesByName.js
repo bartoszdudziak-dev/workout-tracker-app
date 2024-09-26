@@ -1,10 +1,10 @@
-import { getLastExerciseByName } from '../../services/exercisesApi';
+import { getExercisesByName } from '../../services/exercisesApi';
 
 import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { useDebounce } from '../../hooks/useDebounce';
 
-export function useSearchLastExerciseByName() {
+export function useSearchExercisesByName({ limit } = { limit: null }) {
   const [query, setQuery] = useState('');
   const { debouncedValue } = useDebounce(query);
 
@@ -16,10 +16,10 @@ export function useSearchLastExerciseByName() {
     queryFn: () =>
       debouncedValue.length < Number(import.meta.env.VITE_MIN_INPUT_LENGTH)
         ? null
-        : getLastExerciseByName(debouncedValue),
+        : getExercisesByName({ query: debouncedValue, limit }),
     queryKey: ['exercise', debouncedValue],
     retry: false,
   });
 
-  return { data: data?.[0], isSearching, error, setQuery };
+  return { data: limit ? data?.[0] : data, isSearching, error, setQuery };
 }

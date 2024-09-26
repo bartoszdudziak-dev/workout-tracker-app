@@ -7,6 +7,7 @@ import Plans from './pages/Plans';
 import Account from './pages/Account';
 import ProtectedRoute from './features/authentication/ProtectedRoute';
 import Dashboard from './pages/Dashboard';
+import PageNotFound from './ui/PageNotFound';
 
 const router = createBrowserRouter([
   { path: '/', element: <Navigate to='/authentication' /> },
@@ -29,6 +30,7 @@ const router = createBrowserRouter([
       { path: '/account', element: <Account /> },
     ],
   },
+  { path: '*', element: <PageNotFound /> },
 ]);
 
 export default router;

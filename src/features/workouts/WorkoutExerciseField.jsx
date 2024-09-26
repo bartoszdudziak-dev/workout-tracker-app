@@ -5,7 +5,7 @@ import Label from '../../ui/Label';
 import Input from '../../ui/Input';
 import ButtonIcon from '../../ui/ButtonIcon';
 import WorkoutSetsField from './WorkoutSetsField';
-import { useSearchLastExerciseByName } from './useSearchLastExerciseByName';
+import { useSearchExercisesByName } from './useSearchExercisesByName';
 import { useCallback, useEffect } from 'react';
 
 function WorkoutExerciseField({
@@ -23,7 +23,7 @@ function WorkoutExerciseField({
     data: lastExercise,
     setQuery,
     isSearching,
-  } = useSearchLastExerciseByName();
+  } = useSearchExercisesByName({ limit: 1 });
 
   const handleSearchLastExercise = (e) => setQuery(e.target.value);
 

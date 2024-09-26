@@ -17,7 +17,7 @@ function Header({ children }) {
 
   return (
     <div
-      className={`grid shadow-sm ${columns} place-items-center gap-0.5 bg-tetiary px-1 py-2 text-xs font-bold uppercase tracking-widest text-accent-primary sm:text-sm md:text-lg`}
+      className={`grid shadow-sm ${columns} place-items-center gap-0.5 bg-tetiary p-1 text-xs font-bold uppercase tracking-widest text-accent-primary sm:text-sm md:text-lg`}
     >
       {children}
     </div>
@@ -44,9 +44,7 @@ function Body({ data, render }) {
 
 function Footer({ children }) {
   return (
-    <div className='bg-backdrop-secondary px-1 py-2 tracking-widest'>
-      {children}
-    </div>
+    <div className='bg-backdrop-secondary p-1 tracking-widest'>{children}</div>
   );
 }
 

@@ -1,21 +1,36 @@
 import { useQuery } from '@tanstack/react-query';
 import { useSearchParams } from 'react-router-dom';
 import { getWorkoutsAfterDate } from '../../services/workoutsApi';
-import { subDays } from 'date-fns';
+import {
+  differenceInCalendarDays,
+  getDate,
+  startOfYear,
+  subDays,
+} from 'date-fns';
+
+const today = new Date();
+const thisMonthDays = getDate(today);
+const thisYearDays = differenceInCalendarDays(today, startOfYear(today)) + 1;
+
+const periods = {
+  lastWeek: 7,
+  thisMonth: thisMonthDays,
+  thisYear: thisYearDays,
+};
 
 export function useRecentWorkouts() {
   const [searchParams] = useSearchParams();
 
-  const lastDays = searchParams.get('last')
-    ? Number(searchParams.get('last'))
-    : 7;
+  const period = searchParams.get('period')
+    ? searchParams.get('period')
+    : 'lastWeek';
 
-  const date = subDays(new Date(), lastDays).toISOString();
+  const date = subDays(new Date(), periods[period]).toISOString();
 
   const { data: { data, count } = {}, isPending: isLoading } = useQuery({
     queryFn: () => getWorkoutsAfterDate(date),
-    queryKey: ['workouts', `${lastDays}days`],
+    queryKey: ['workouts', `${period}`],
   });
 
-  return { data, isLoading, count, lastDays };
+  return { data, isLoading, count, days: periods[period] };
 }
