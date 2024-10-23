@@ -53,7 +53,7 @@ nav li:has(a.active) {
   font-weight: bold;
 }
 
-.custom-date-picker .scroll-gutter-stable {
+.scroll-gutter-stable {
   scrollbar-gutter: stable;
 }
 
