@@ -11,6 +11,13 @@ import { useLogin } from './useLogin';
 function LoginForm() {
   const { login, isLoading } = useLogin();
 
+  const handleLoginGuest = () => {
+    login({
+      email: import.meta.env.VITE_GUEST_EMAIL,
+      password: import.meta.env.VITE_GUEST_PASSWORD,
+    });
+  };
+
   const {
     register,
     handleSubmit,
@@ -68,14 +75,24 @@ function LoginForm() {
       </div>
 
       <div className='flex items-center justify-between'>
-        <Button
-          disabled={isLoading}
-          size='large'
-          htmlType='submit'
-          type='primary'
-        >
-          Login
-        </Button>
+        <div className='space-y-2'>
+          <Button
+            disabled={isLoading}
+            size='large'
+            htmlType='submit'
+            type='primary'
+          >
+            Login
+          </Button>
+          <Button
+            disabled={isLoading}
+            size='large'
+            type='secondary'
+            onClick={handleLoginGuest}
+          >
+            Guest Account
+          </Button>
+        </div>
         {isLoading && <SpinnerMini />}
       </div>
     </form>

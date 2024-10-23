@@ -43,7 +43,6 @@ export async function getUser() {
 }
 
 export async function updateUser({ firstName, lastName }) {
-  console.log(firstName, lastName);
   const { data, error } = await supabase.auth.updateUser({
     data: { firstName, lastName },
   });
