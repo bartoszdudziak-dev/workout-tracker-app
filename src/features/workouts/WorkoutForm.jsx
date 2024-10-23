@@ -180,7 +180,7 @@ function WorkoutForm({ session, workout, closeModalWindow }) {
           </FormRow>
           <FormRow>
             <Label htmlFor='workoutDate'>Date</Label>
-            <div>
+            <div className='custom-date-picker'>
               <Controller
                 control={control}
                 name='workoutDate'

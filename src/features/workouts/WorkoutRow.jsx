@@ -52,7 +52,7 @@ function WorkoutRow({ workout, onOpen, curOpen }) {
       workoutRate: null,
     });
   };
-  console.log(isMobile);
+
   return (
     <Modal>
       <div className='relative'>
