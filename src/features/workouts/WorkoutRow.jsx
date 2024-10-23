@@ -52,7 +52,7 @@ function WorkoutRow({ workout, onOpen, curOpen }) {
       workoutRate: null,
     });
   };
-
+  console.log(isMobile);
   return (
     <Modal>
       <div className='relative'>
@@ -75,7 +75,7 @@ function WorkoutRow({ workout, onOpen, curOpen }) {
             )}
           </div>
           <div
-            className={`line-clamp-3 break-all ${isOpen ? 'font-bold text-accent-primary' : 'font-semibold'}`}
+            className={`line-clamp-3 w-full max-w-[80%] text-start ${isOpen ? 'font-bold text-accent-primary' : 'font-semibold'}`}
           >
             {name}
           </div>
