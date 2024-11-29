@@ -8,3 +8,4 @@
 - Vite
 
 ### _Bartosz Dudziak_
+https://workout-tracker-dudziak.netlify.app
