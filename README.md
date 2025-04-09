@@ -1,6 +1,4 @@
-
 ![Preview](./public/preview.gif)
-
 
 # Workout Tracker
 
@@ -8,17 +6,18 @@ See the live version of [Workout Tracker](https://workout-tracker-dudziak.netlif
 
 My first FullStack project created for tracking your gym progress as a summary of the completed React course.
 
-
 **Main features**:
-- Workout & Training Plan Management
-- Track Your Progress
-- User Authentication
-- Dark & Light Theme
-- Responsive Design
+
+- 📋 Workout & Training Plan Management
+- 📈 Track Your Progress
+- 🔒 User Authentication
+- 🌗 Dark & Light Theme
+- 📱 Responsive Design
 
 &nbsp;
- 
+
 ## 💡 Technologies
+
 ![React](https://img.shields.io/badge/-ReactJs-61DAFB?logo=react&logoColor=white&style=for-the-badge)
 ![Tailwind](https://img.shields.io/badge/Tailwind_CSS-grey?style=for-the-badge&logo=tailwind-css&logoColor=38B2AC)
 ![Supabase](https://shields.io/badge/supabase-black?logo=supabase&style=for-the-badge)
@@ -29,10 +28,10 @@ My first FullStack project created for tracking your gym progress as a summary o
 
 &nbsp;
 
-
 ## 💭 Conclusions for future projects
 
 I would like to:
+
 - add TypeScript
 - create more reusable components
 - make forms more user friendly
@@ -41,4 +40,5 @@ I would like to:
 &nbsp;
 
 ## 👏 Thanks
+
 Thanks to [Jonas Schmedtmann](https://www.udemy.com/user/jonasschmedtmann/) – for providing me knowladge in his [Ultimate React Course](https://www.udemy.com/course/the-ultimate-react-course/).
